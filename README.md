@@ -7,3 +7,4 @@ Website of SoulScript, by Marine Cornu. Changes saved to `main` go live automati
 - Rules for Claude or any AI helper: `CLAUDE.md`
 
 Built by MarketinCrew.
+
