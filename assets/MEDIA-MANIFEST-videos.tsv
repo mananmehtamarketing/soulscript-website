@@ -1,0 +1,5 @@
+
+source_path	output_path	bytes_in	bytes_out	where_used
+_source/Website/Videos/sheer-fabric-flowing-gently-abstract-motion-2026-01-22-05-51-52-utc.mp4	website/assets/video/hero-sheer-fabric-1920.mp4	11064515	1669864	home S1 hero
+_source/Website/Videos/sheer-fabric-flowing-gently-abstract-motion-2026-01-22-05-51-52-utc.mp4	website/assets/video/hero-sheer-fabric-1280.webm	11064515	494868	home S1 hero
+_source/Website/Videos/sheer-fabric-flowing-gently-abstract-motion-2026-01-22-05-51-52-utc.mp4	website/assets/video/hero-sheer-fabric-poster.jpg	11064515	51825	home S1 hero poster

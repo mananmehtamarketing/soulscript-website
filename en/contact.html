@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="../assets/logo/icon-light.png?v=e67ab573" />
+  <link rel="alternate icon" href="../favicon.ico" />
+  <title>Contact - SoulScript</title>
+  <meta name="description" content="Book a discovery call or send a private request. Coaching, retreat, or business, it begins with a conversation." />
+  <link rel="canonical" href="https://soulscript.fr/en/contact" />
+  <link rel="alternate" hreflang="fr" href="https://soulscript.fr/contact" />
+  <link rel="alternate" hreflang="en" href="https://soulscript.fr/en/contact" />
+  <link rel="alternate" hreflang="x-default" href="https://soulscript.fr/contact" />
+  <link rel="preload" href="../assets/fonts/blinka-serif.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="../assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin />
+  <style>
+    @font-face { font-family: "Blinka Serif"; src: url("../assets/fonts/blinka-serif.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Archivo"; src: url("../assets/fonts/archivo.woff2") format("woff2"); font-weight: 100 900; font-style: normal; font-display: swap; }
+    @font-face { font-family: "Archivo"; src: url("../assets/fonts/archivo-italic.woff2") format("woff2"); font-weight: 100 900; font-style: italic; font-display: swap; }
+  </style>
+  <link rel="stylesheet" href="../css/site.css?v=cc9e7cb7" />
+  <script>document.documentElement.classList.add("js");/*ss-js-flag*/</script>
+  <!-- Speed Insights. Cookieless, so no CNIL consent banner is needed.
+       WEB ANALYTICS IS NOT WIRED YET, deliberately. Vercel only starts serving
+       its script once the feature is switched on in the dashboard (Project ->
+       Analytics -> Enable), and there is no API for it. Until that click,
+       /_vercel/insights/script.js 404s on every single page view, so the tag is
+       left out rather than shipping a broken request to every visitor.
+       TO TURN ON: click Enable, then add back:
+         <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+         <script defer src="/<unique-path>/script.js"></script>
+       Vercel shows the unique path on the Analytics tab after enabling. -->
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+</head>
+<body>
+  <div id="ss-header"></div>
+  <div id="ss-mobile-nav"></div>
+
+  <main>
+    <section class="inner-hero" aria-label="Contact">
+      <video class="inner-hero-video" autoplay muted loop playsinline
+             poster="../assets/video/hero-contact-poster.jpg" aria-hidden="true">
+        <source src="../assets/video/hero-contact-1920.mp4?v=598453cb" type="video/mp4" />
+        <source src="../assets/video/hero-contact-1280.webm?v=881b10d2" type="video/webm" />
+      </video>
+      <div class="inner-hero-scrim" aria-hidden="true"></div>
+      <div class="inner-hero-content reveal">
+        <h1>Let&#39;s start with a<br />conversation</h1>
+        <p class="hero-intro">Book a discovery call, or send me your question.</p>
+      </div>
+    </section>
+
+    <section class="section p8-cream-to-soft" aria-label="Book or write">
+      <div class="container split">
+        <div class="reveal">
+          <span class="eyebrow">Book</span>
+          <h2 style="margin-top:10px">Make an appointment.</h2>
+          <p style="margin-top:12px;color:var(--warm-brown)">Choose a slot for a discovery call. There is no commitment, it is simply a chance to feel whether the SoulScript method speaks to your story.</p>
+          <!-- Google Calendar appointment schedule, CLICK TO LOAD. Same reasoning as
+               the French page: no cookies until the visitor asks for the calendar. -->
+          <div class="ss-booking" data-booking-src="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2FkKqZ6RUaECxUC9BbpN3azMMse7vnQHko7dYxjWc5ymRKr6I7SdRoPrCqr4bzKQNQSVN4VEiE?gv=true">
+            <button type="button" class="btn btn--primary ss-booking-load" style="margin-top:20px">See available times</button>
+            <p class="ss-booking-note">The calendar opens from Google Calendar. Displaying it may let Google set cookies.</p>
+            <noscript><a class="btn btn--primary" style="margin-top:20px" href="https://calendar.google.com/calendar/appointments/schedules/AcZssZ2FkKqZ6RUaECxUC9BbpN3azMMse7vnQHko7dYxjWc5ymRKr6I7SdRoPrCqr4bzKQNQSVN4VEiE?gv=true" target="_blank" rel="noopener">See available times</a></noscript>
+          </div>
+        </div>
+        <div class="reveal">
+          <span class="eyebrow">Write</span>
+          <h2 style="margin-top:10px">Send a message.</h2>
+          <p style="margin-top:12px;color:var(--warm-brown)">A question, an intuition, a project? Share what brings you here and I will answer you personally.</p>
+          <form class="ss-form ss-form--wide" style="margin-top:20px" method="POST">
+            <div class="ss-field">
+              <label for="c-nom">Name</label>
+              <input id="c-nom" type="text" name="nom" required />
+            </div>
+            <div class="ss-field">
+              <label for="c-email">Email</label>
+              <input id="c-email" type="email" name="email" required />
+            </div>
+            <div class="ss-field">
+              <label for="c-sujet">Subject</label>
+              <select id="c-sujet" name="sujet" required>
+                <option value="" disabled selected>Choose&hellip;</option>
+                <option value="coaching">Coaching</option>
+                <option value="retraite">Retreat</option>
+              </select>
+            </div>
+            <div class="ss-field">
+              <label for="c-msg">Your message</label>
+              <textarea id="c-msg" name="message" required></textarea>
+            </div>
+            <button class="ss-submit" type="submit">Send my message</button>
+          </form>
+        </div>
+      </div>
+    </section>
+  
+    <!-- Rows 12 + 13, 31 Aug: home and contact only, directly above the footer. -->
+    <section class="section ig-strip" aria-label="Instagram">
+      <div class="container">
+        <div class="ig-head reveal">
+          <h2>On Instagram</h2>
+          <a class="ig-handle" href="https://www.instagram.com/marine_soulscript/" target="_blank" rel="noopener">@marine_soulscript &rarr;</a>
+        </div>
+        <div class="ig-grid reveal is-live">
+          <a class="is-video" href="https://www.instagram.com/reel/DctHgmQunp9/" target="_blank" rel="noopener" aria-label="“Stop with the back-to-reality of September”"><img src="../assets/img/ig/ig-01.webp?v=73606418" alt="“Stop with the back-to-reality of September”" loading="lazy" width="283" height="378" /></a>
+          <a class="is-video" href="https://www.instagram.com/reel/DcnZ8Qnucto/" target="_blank" rel="noopener" aria-label="“Movement as medicine”"><img src="../assets/img/ig/ig-02.webp?v=120263cc" alt="“Movement as medicine”" loading="lazy" width="283" height="378" /></a>
+          <a class="is-video" href="https://www.instagram.com/reel/Dck0XRUOW30/" target="_blank" rel="noopener" aria-label="“A new page opens in September”"><img src="../assets/img/ig/ig-03.webp?v=5975ed72" alt="“A new page opens in September”" loading="lazy" width="283" height="378" /></a>
+          <a href="https://www.instagram.com/p/Dcf9R2kDo6b/" target="_blank" rel="noopener" aria-label="“You can always start again”"><img src="../assets/img/ig/ig-04.webp?v=f473f9fa" alt="“You can always start again”" loading="lazy" width="283" height="378" /></a>
+          <a class="is-video" href="https://www.instagram.com/reel/DcgTysSuE42/" target="_blank" rel="noopener" aria-label="“You can always begin again”"><img src="../assets/img/ig/ig-05.webp?v=5eee4b7c" alt="“You can always begin again”" loading="lazy" width="283" height="378" /></a>
+          <a class="is-video" href="https://www.instagram.com/reel/DcZDNoPONVe/" target="_blank" rel="noopener" aria-label="“Poetry of life”"><img src="../assets/img/ig/ig-06.webp?v=f44ae117" alt="“Poetry of life”" loading="lazy" width="283" height="378" /></a>
+          <a href="https://www.instagram.com/p/DcVW3VrDpdr/" target="_blank" rel="noopener" aria-label="“Changing nothing is also a decision”"><img src="../assets/img/ig/ig-07.webp?v=68b399b7" alt="“Changing nothing is also a decision”" loading="lazy" width="283" height="378" /></a>
+          <a href="https://www.instagram.com/p/DcTQ6GZDmpB/" target="_blank" rel="noopener" aria-label="“Fear loves to convince us it is our reason”"><img src="../assets/img/ig/ig-08.webp?v=789f95f4" alt="“Fear loves to convince us it is our reason”" loading="lazy" width="283" height="378" /></a>
+        </div>
+      </div>
+    </section>
+  </main>
+  <div id="ss-footer"></div>
+  <script src="../js/forms.js?v=6abe9887" defer></script>
+  <script src="../js/site.js?v=1c4cc2c0"></script>
+</body>
+</html>

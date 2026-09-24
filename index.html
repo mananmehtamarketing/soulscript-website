@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="assets/logo/icon-light.png?v=e67ab573" />
+  <link rel="alternate icon" href="favicon.ico" />
+  <title>SoulScript - Réécrire. Se réaligner. S'élever.</title>
+  <meta name="description" content="SoulScript est un sanctuaire pour explorer les récits intérieurs qui façonnent votre vie, dénouer ceux qui ne vous servent plus et retrouver le fil de ce qui est profondément juste pour vous." />
+  <link rel="canonical" href="https://soulscript.fr/" />
+  <link rel="alternate" hreflang="fr" href="https://soulscript.fr/" />
+  <link rel="alternate" hreflang="en" href="https://soulscript.fr/en/" />
+  <link rel="alternate" hreflang="x-default" href="https://soulscript.fr/" />
+
+  <!-- Fonts: self-hosted woff2, subset. Blinka Serif + Archivo only (brand book). -->
+  <link rel="preload" href="assets/fonts/blinka-serif.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="assets/fonts/archivo.woff2" as="font" type="font/woff2" crossorigin />
+  <style>
+    @font-face {
+      font-family: "Blinka Serif";
+      src: url("assets/fonts/blinka-serif.woff2") format("woff2");
+      font-weight: 400; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: "Archivo";
+      src: url("assets/fonts/archivo.woff2") format("woff2");
+      font-weight: 100 900; font-style: normal; font-display: swap;
+    }
+    @font-face {
+      font-family: "Archivo";
+      src: url("assets/fonts/archivo-italic.woff2") format("woff2");
+      font-weight: 100 900; font-style: italic; font-display: swap;
+    }
+  </style>
+
+  <link rel="stylesheet" href="css/site.css?v=cc9e7cb7" />
+  <script>document.documentElement.classList.add("js");/*ss-js-flag*/</script>
+  <!-- Speed Insights. Cookieless, so no CNIL consent banner is needed.
+       WEB ANALYTICS IS NOT WIRED YET, deliberately. Vercel only starts serving
+       its script once the feature is switched on in the dashboard (Project ->
+       Analytics -> Enable), and there is no API for it. Until that click,
+       /_vercel/insights/script.js 404s on every single page view, so the tag is
+       left out rather than shipping a broken request to every visitor.
+       TO TURN ON: click Enable, then add back:
+         <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+         <script defer src="/<unique-path>/script.js"></script>
+       Vercel shows the unique path on the Analytics tab after enabling. -->
+  <script defer src="/_vercel/speed-insights/script.js"></script>
+</head>
+<body>
+
+
+  <!-- Header (injected) -->
+  <div id="ss-header"></div>
+  <div id="ss-mobile-nav"></div>
+
+  <main>
+    <!-- ====================================================
+         P1 - WELCOME HERO (video, poster first, muted loop)
+         Pattern sequence per DESIGN-REVIEW: P1 hero
+         ==================================================== -->
+    <section class="hero" id="waterHero" aria-label="Bienvenue"
+             data-still="assets/img/hero-water-1600.jpg">
+      <img class="hero-still" src="assets/img/hero-water-1600.jpg?v=df837fb8"
+           srcset="assets/img/hero-water-1000.jpg 1000w, assets/img/hero-water-1600.jpg 1600w, assets/img/hero-water-2400.jpg 2400w"
+           sizes="100vw" alt="" aria-hidden="true" fetchpriority="high" />
+      <div class="hero-scrim" aria-hidden="true"></div>
+
+      <div class="hero-content">
+        <!-- h1 holds its space from frame 1 at opacity 0, which is what keeps
+             the tagline below it from moving when the headline arrives. -->
+        <h1 class="hero-h1">Bienvenue chez SoulScript</h1>
+
+        <!-- the tagline: first thing on screen, final size, final position -->
+        <div class="hero-tag" id="heroSeq" role="presentation">
+          <span class="w" data-w>Rewrite</span><span class="sep" data-w>&middot;</span><span class="w" data-w>Realign</span><span class="sep" data-w>&middot;</span><span class="w" data-w>Rise</span>
+        </div>
+      </div>
+
+      <div class="scroll-cue">Défiler pour explorer</div>
+      <div class="hero-bleed" aria-hidden="true"></div>
+    </section>
+
+    <!-- ====================================================
+         P4 - CIRCULAR MENU (masgirbau pattern, row 11/33)
+         Wider rail, native swipe on mobile, arrows for desktop.
+         Pattern sequence: P1 -> P4 -> P2 -> P8 -> footer
+         ==================================================== -->
+    <section class="section menu-section" aria-label="Explorer SoulScript">
+      <div class="container">
+        <div class="section-head centered reveal">
+          <span class="eyebrow">Explorer</span>
+          <h2>Changer votre récit intérieur et incarner pleinement le prochain chapitre de votre existence.</h2>
+        </div>
+
+        <div class="menu-rail-wrap mt-l reveal">
+          <!-- V3 rows 3-9. Marine's exact words: "I am not comfortable with the pictures, they
+               are too AI style and it's not what I want to convey with SoulScript." She offered
+               exactly two ways out: real licensed photography from Getty, or "very abstract
+               symbols for each section" in the language of her certification pictograms.
+               Generated photography is NEITHER of those, so this is option 2, drawn as a matched
+               pictogram set in MK Image Studio: one line weight, one margin, brand sienna on
+               brand cream. The same four marks are her Instagram highlight covers.
+               V3 row 70: Communauté and Entreprises are unpublished until mid-September, so
+               their two circles are removed rather than left pointing at nothing. -->
+          <!-- V4 rows 6-12, RESOLVED 27 Aug 2026 with Anfliya's delivered set.
+               Marine asked for four things here and all four land together: equal
+               stroke weight across the row, the colour treatment she liked, a writing
+               quill for La methode, something warmer for Accompagnements, and a
+               Retraites mark that does not read as a person lying down.
+               These are her designer's vectors, so the row is now SVG rather than the
+               flattened .webp rasters that baked in the uneven weight. The mapping is
+               read off the designer's own labelled contact sheet
+               (_source/2026-08-27-from-stalin-anfliya/icons/icons_ss-02.jpg), never
+               guessed from the drawing. -->
+          <div class="p4-circles p4-circles--fits" data-menu-rail>
+            <a class="p4-circle" href="a-propos">
+              <div class="p4-ring">
+                <img src="assets/img/picto/circle-a-propos.svg?v=b7bd561a" alt="Pictogramme : un livre ouvert d'où s'élève un ruban qui s'enroule" loading="lazy" width="96" height="96" />
+              </div>
+              <div class="p4-label">À propos</div>
+            </a>
+            <a class="p4-circle" href="la-methode">
+              <div class="p4-ring">
+                <img src="assets/img/picto/circle-methode.svg?v=1838f660" alt="Pictogramme : une plume d'écriture, quelques étoiles et une volute" loading="lazy" width="96" height="96" />
+              </div>
+              <div class="p4-label">La méthode</div>
+            </a>
+            <a class="p4-circle" href="les-accompagnements">
+              <div class="p4-ring">
+                <img src="assets/img/picto/circle-accompagnement.svg?v=e9230a6a" alt="Pictogramme : une silhouette dont le buste dessine un cœur" loading="lazy" width="96" height="96" />
+              </div>
+              <div class="p4-label">Accompagnements</div>
+            </a>
+            <a class="p4-circle" href="experiences-retraites">
+              <div class="p4-ring">
+                <img src="assets/img/picto/circle-retraites.png?v=62093bfe" alt="Pictogramme : une spirale ouverte sur un paysage de collines au soleil levant" loading="lazy" width="96" height="96" />
+              </div>
+              <div class="p4-label">Retraites</div>
+            </a>
+          </div>
+
+          <div class="menu-arrows">
+            <button class="menu-arrow" data-menu-prev aria-label="Page précédente">&#8592;</button>
+            <button class="menu-arrow" data-menu-next aria-label="Page suivante">&#8594;</button>
+          </div>
+        </div>
+
+        <div class="menu-body reveal">
+          <p>SoulScript est un sanctuaire pour explorer les récits intérieurs qui façonnent votre vie, dénouer ceux qui ne vous servent plus et retrouver le fil de ce qui est profondément juste pour vous.</p>
+          <p class="standout">Pour ne plus seulement comprendre que quelque chose doit changer, mais commencer à vivre autrement.</p>
+          <a class="btn btn--primary menu-cta" href="la-methode">Découvrir la méthode</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         P2 - ABOUT SPLIT (the approved model, frame t166, row 15)
+         Photo left, text right, near-equal heights.
+         Pattern sequence: ... -> P2 -> P8 -> footer
+         ==================================================== -->
+    <section class="section section--soft about-split p8-soft-to-cream" aria-label="À propos de Marine">
+      <div class="container split">
+        <div class="about-img frame reveal">
+          <!-- The photo Marine chose (V2 doc, row 20). She sent a compressed crop of it;
+               this is the same frame from her original shoot file at full resolution. -->
+          <img src="assets/img/marine-sin-ttulo-3530-800.webp?v=250ba533"
+               srcset="assets/img/marine-sin-ttulo-3530-2400.webp 2400w, assets/img/marine-sin-ttulo-3530-1440.webp 1440w, assets/img/marine-sin-ttulo-3530-800.webp 800w"
+               sizes="(max-width: 860px) 100vw, 50vw"
+               alt="Marine assise en robe crème devant des figuiers de Barbarie" loading="lazy" />
+        </div>
+        <div class="about-text reveal">
+          <h2>Je suis Marine, fondatrice de SoulScript.</h2>
+          <div class="role-stack">
+            <span>Exploratrice de nos récits intérieurs.</span>
+            <span>Guide et inspiratrice de nouveaux possibles.</span>
+          </div>
+          <!-- V3 row 11: Marine shortened this again. Her exact copy, her two bold beats. -->
+          <div class="readmore" data-rm>
+            <div class="rm-collapsed">
+              <p>J'ai toujours été fascinée par les récits et leur pouvoir de transformer notre regard sur le monde. Pendant 17 ans j'ai raconté les histoires des autres, pour des entreprises et des marques.</p>
+              <!-- V4 row 13: "Please be careful 'Soudain' should start on a new line." -->
+              <p><strong>Un jour, mon propre corps m'a arrêtée. Burn-out.<br />Soudain, l'histoire que je m'étais racontée ne tenait plus.</strong></p>
+              <p>Alors, j'ai regardé autrement mes choix, mes croyances, mes ambitions. J'ai écouté les histoires qui, souvent sans que je le sache, guidaient ma vie. Et surtout, je me suis demandé si je pouvais écrire la suite autrement.</p>
+              <p>Pendant dix ans, j'ai cherché, exploré, déconstruit. J'ai appris à écouter mon corps, mes sensations et à réécrire mon propre récit. C'est de ce chemin qu'est né SoulScript.</p>
+              <p><strong>Aujourd'hui, j'accompagne celles et ceux qui sentent qu'une partie de leur histoire ne leur ressemble plus à écrire la suite autrement et surtout, à la vivre !</strong></p>
+            </div>
+            <div class="rm-fade" aria-hidden="true"></div>
+            <button class="rm-btn" aria-expanded="false">Lire la suite</button>
+          </div>
+          <!-- V4 row 27: "Make 'Découvrir mon histoire' in the same format + color as
+               the rest of the buttons." It was a plain arrow link, which is exactly
+               the CTA she said she scrolled straight past. -->
+          <a class="btn btn--primary" href="a-propos" style="margin-top:22px">Découvrir mon histoire</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         P8 - Gradient bleed into footer (row 10: kill hard boundaries)
+         ==================================================== -->
+  
+    <!-- V4 row 26: home had exactly one button, mid-page.
+         Marine: "we need to add more buttons throughout the pages... especially
+         crucial for mobile users... we are quite lost at the end of the page."
+         Same sienna band as /la-methode so every page closes the same way. -->
+    <section class="section section--sienna band-dark" aria-label="Continuer">
+      <div class="container center reveal">
+        <h2>Prêt·e à écrire la suite ?</h2>
+        <p class="lead" style="margin:18px auto 0;max-width:54ch">Réservez un appel découverte. Sans engagement, pour sentir si la méthode SoulScript résonne avec votre histoire.</p>
+        <a class="btn btn--on-dark" href="contact" style="margin-top:24px">Réserver un appel</a>
+      </div>
+    </section>
+  
+    <!-- Rows 12 + 13, 31 Aug: home and contact only, directly above the footer. -->
+    <section class="section ig-strip" aria-label="Instagram">
+      <div class="container">
+        <div class="ig-head reveal">
+          <h2>Sur Instagram</h2>
+          <a class="ig-handle" href="https://www.instagram.com/marine_soulscript/" target="_blank" rel="noopener">@marine_soulscript &rarr;</a>
+        </div>
+        <div class="ig-grid reveal is-live">
+          <a class="is-video" href="https://www.instagram.com/reel/DctHgmQunp9/" target="_blank" rel="noopener" aria-label="« Stop avec le back to reality de la rentrée »"><img src="assets/img/ig/ig-01.webp?v=73606418" alt="« Stop avec le back to reality de la rentrée »" loading="lazy" width="283" height="378" /></a>
+          <a class="is-video" href="https://www.instagram.com/reel/DcnZ8Qnucto/" target="_blank" rel="noopener" aria-label="« Le mouvement comme médecine »"><img src="assets/img/ig/ig-02.webp?v=120263cc" alt="« Le mouvement comme médecine »" loading="lazy" width="283" height="378" /></a>
+          <a class="is-video" href="https://www.instagram.com/reel/Dck0XRUOW30/" target="_blank" rel="noopener" aria-label="« Une nouvelle page s'ouvre en septembre »"><img src="assets/img/ig/ig-03.webp?v=5975ed72" alt="« Une nouvelle page s'ouvre en septembre »" loading="lazy" width="283" height="378" /></a>
+          <a href="https://www.instagram.com/p/Dcf9R2kDo6b/" target="_blank" rel="noopener" aria-label="« You can always start again »"><img src="assets/img/ig/ig-04.webp?v=f473f9fa" alt="« You can always start again »" loading="lazy" width="283" height="378" /></a>
+          <a class="is-video" href="https://www.instagram.com/reel/DcgTysSuE42/" target="_blank" rel="noopener" aria-label="« On peut toujours recommencer »"><img src="assets/img/ig/ig-05.webp?v=5eee4b7c" alt="« On peut toujours recommencer »" loading="lazy" width="283" height="378" /></a>
+          <a class="is-video" href="https://www.instagram.com/reel/DcZDNoPONVe/" target="_blank" rel="noopener" aria-label="« Poésie de la vie »"><img src="assets/img/ig/ig-06.webp?v=f44ae117" alt="« Poésie de la vie »" loading="lazy" width="283" height="378" /></a>
+          <a href="https://www.instagram.com/p/DcVW3VrDpdr/" target="_blank" rel="noopener" aria-label="« Ne rien changer est aussi une décision »"><img src="assets/img/ig/ig-07.webp?v=68b399b7" alt="« Ne rien changer est aussi une décision »" loading="lazy" width="283" height="378" /></a>
+          <a href="https://www.instagram.com/p/DcTQ6GZDmpB/" target="_blank" rel="noopener" aria-label="« La peur adore nous faire croire qu'elle est notre raison »"><img src="assets/img/ig/ig-08.webp?v=789f95f4" alt="« La peur adore nous faire croire qu'elle est notre raison »" loading="lazy" width="283" height="378" /></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer (injected) -->
+  <div id="ss-footer"></div>
+
+  <script src="js/water-hero.js?v=0ebaee59" defer></script>
+  <script src="js/site.js?v=1c4cc2c0"></script>
+</body>
+</html>

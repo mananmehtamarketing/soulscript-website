@@ -1,0 +1,3200 @@
+/* ============================================================
+   SoulScript - site.css  (REBUILD 2026-08-06)
+   Static, no build step. Tokens per brand book.
+   Section vocabulary: 10 patterns (P1-P10) per DESIGN-REVIEW.md.
+   Motion: ONE entrance treatment, gated by --motion and
+   prefers-reduced-motion. No hover transforms on images,
+   no parallax, no scroll-scrubbed motion, no autoplay carousels.
+   ============================================================ */
+
+/* --- 1. Design tokens (exact hex from brand book) --- */
+:root {
+  /* Primary */
+  --terracotta:    #BF5F4C;
+  --burnt-sienna:  #8F2A0D;
+  --warm-brown:    #915F3A;
+  --cream-beige:   #F7E7C9;
+
+  /* Secondary - emphasis only, never structural */
+  --golden-ochre:  #D89C44;
+  --olive-green:   #697040;
+
+  /* Derived */
+  --ink:           #2E2620;
+  --cream-soft:    #FBF7F0;
+  --line:          rgba(46, 38, 32, .14);
+
+  /* Type scale (desktop -> mobile via clamp) */
+  --h1: clamp(44px, 7vw, 92px);
+  --h2: clamp(32px, 4.4vw, 56px);
+  --h3: 28px;
+  --body: 17px;
+  --eyebrow: 11px;
+
+  /* Spacing - COMPACTED per ledger rows 12, 13 */
+  --gutter: clamp(20px, 5vw, 80px);
+  --section-pad-y: clamp(48px, 6vw, 72px);
+  --radius: 14px;
+  --radius-lg: 20px;
+
+  --header-h: 72px;
+  --maxw: 1280px;
+
+  --font-display: "Blinka Serif", Georgia, serif;
+  --font-body: "Archivo", system-ui, sans-serif;
+
+  /* MOTION GATE: one custom property kills all entrance motion globally.
+     Marine objects -> set to 0 in one line. --motion also disabled by
+     prefers-reduced-motion (see motion section). */
+  --motion: 1;
+}
+
+/* --- 2. Reset --- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-text-size-adjust: 100%; }
+html:focus-within { scroll-behavior: auto; }
+body {
+  font-family: var(--font-body);
+  font-size: var(--body);
+  line-height: 1.7;
+  color: var(--ink);
+  background: var(--cream-beige);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+img, video, svg { display: block; max-width: 100%; }
+img { height: auto; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+ul { list-style: none; }
+
+/* --- 3. Typography --- */
+h1, h2, h3, h4, .display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.08;
+  letter-spacing: -0.01em;
+  color: var(--burnt-sienna);
+}
+h1 { font-size: var(--h1); }
+h2 { font-size: var(--h2); }
+h3 { font-size: var(--h3); }
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: var(--eyebrow);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+  font-weight: 600;
+}
+
+p { max-width: 62ch; }
+.lead { font-size: clamp(18px, 2vw, 21px); line-height: 1.65; }
+
+/* Script font token REMOVED. .script now renders Archivo small-caps, letter-spaced. */
+.script {
+  font-family: var(--font-body);
+  font-size: 14px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--terracotta);
+}
+
+/* --- 4. Layout primitives --- */
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+.section { padding-block: var(--section-pad-y); }
+.section--soft  { background: var(--cream-soft); }
+.section--olive { background: var(--olive-green); color: var(--cream-soft); }
+.section--olive h1, .section--olive h2, .section--olive h3 { color: var(--cream-soft); }
+.section--sienna { background: var(--burnt-sienna); color: var(--cream-soft); }
+.section--sienna h1, .section--sienna h2, .section--sienna h3 { color: var(--cream-soft); }
+
+/* Balanced split - P2 (DESIGN-REVIEW): image and text near-equal height. */
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 6vw, 80px);
+  align-items: center;
+}
+@media (max-width: 860px) {
+  .split { grid-template-columns: 1fr; gap: 32px; }
+}
+
+/* --- 5. Buttons --- */
+.btn {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 14px 28px;
+  border-radius: var(--radius);
+  border: 1.5px solid transparent;
+  transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
+}
+.btn--primary { background: var(--terracotta); color: var(--cream-soft); }
+.btn--primary:hover { background: var(--burnt-sienna); }
+.btn--ghost { border-color: var(--line); color: var(--ink); }
+.btn--ghost:hover { border-color: var(--terracotta); color: var(--terracotta); }
+.btn--on-dark { border-color: rgba(247,231,201,.5); color: var(--cream-soft); }
+.btn--on-dark:hover { border-color: var(--golden-ochre); color: var(--golden-ochre); }
+
+/* Pill CTA for the floating nav */
+.btn--pill {
+  border-radius: 99px;
+  background: var(--terracotta);
+  color: var(--cream-soft);
+  padding: 10px 20px;
+  font-size: 12px;
+}
+.btn--pill:hover { background: var(--burnt-sienna); }
+
+/* --- 6. Links (150ms shift only) --- */
+.link-u {
+  position: relative;
+  transition: color 150ms ease;
+}
+.link-u::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 150ms ease;
+}
+.link-u:hover::after { transform: scaleX(1); }
+
+/* --- 7. Image frames --- */
+.frame {
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+.frame img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 30%; }
+
+/* ============================================================
+   HEADER - Floating pill nav (BATCH 2, ledger rows 6, 8, 9)
+   Source pattern: prefusion-floating-pill-nav, re-skinned.
+   Background runs to the very top of the viewport (row 9).
+   Rounded bar, pill CTA (row 8). Frosts on scroll.
+   ============================================================ */
+.site-header {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 14px var(--gutter) 0;
+  pointer-events: none; /* let the bar itself catch clicks */
+}
+.site-header .nav-bar {
+  pointer-events: auto;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  background: rgba(247, 231, 201, 0.88);
+  backdrop-filter: blur(14px) saturate(1.2);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  padding: 8px 8px 8px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  transition: background-color 280ms ease, box-shadow 280ms ease, border-color 280ms ease;
+}
+.site-header.is-scrolled .nav-bar {
+  background: rgba(247, 231, 201, 0.96);
+  box-shadow: 0 10px 34px rgba(46, 38, 32, 0.14);
+  border-color: rgba(46, 38, 32, 0.10);
+}
+
+/* Brand: REAL logo lockup placed from file, never live type (row 1).
+   FIX 2: sized for legibility - min 132px lockup width (brand-book minimum).
+   Uses the padding-trimmed -nav derivatives so the wordmark reads at a glance. */
+.nav-brand {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+.nav-brand img {
+  height: 70px;            /* -> 140px lockup width (meets brand min 132px) */
+  width: auto;
+  display: block;
+}
+@media (max-width: 680px) {
+  .nav-brand img { height: 46px; }  /* mobile: ~92px, fits beside FR|EN + hamburger */
+}
+
+/* Centre links - six labels visible as text to 1100px (kept from prior build). */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(14px, 1.8vw, 28px);
+}
+.nav-links a {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--ink);
+  white-space: nowrap;
+  position: relative;
+  transition: color 150ms ease;
+}
+.nav-links a:hover { color: var(--terracotta); }
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -4px;
+  height: 1px;
+  background: var(--terracotta);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 150ms ease;
+}
+.nav-links a:hover::after { transform: scaleX(1); }
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: clamp(12px, 1.6vw, 20px);
+  flex-shrink: 0;
+}
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+  color: var(--ink);
+}
+.lang-switch a { color: var(--ink); transition: color 150ms ease; }
+.lang-switch a.is-active { color: var(--burnt-sienna); font-weight: 700; }
+.lang-switch a:hover { color: var(--terracotta); }
+.lang-switch .sep { color: var(--line); }
+
+/* Hamburger: below 980px (six links as text to 1100 was the old spec; pill nav
+   is tighter so we collapse a little earlier to keep the bar clean). */
+.menu-toggle {
+  display: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(46, 38, 32, 0.06);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 4px;
+}
+.menu-toggle span { display: block; width: 18px; height: 1.5px; background: var(--ink); }
+
+/* FIX 1: mobile header keeps logo + FR|EN + hamburger visible at all widths.
+   The drawer carries the six links + Réserver. Below 1099 nav-links collapse;
+   FR|EN stays visible (it is not a link list, it is a utility) down to 360. */
+@media (max-width: 1099px) {
+  .nav-links { display: none; }
+  .nav-cta-pill { display: none; }
+  .menu-toggle { display: flex; }
+}
+@media (max-width: 680px) {
+  .site-header { padding: 10px 12px 0; }
+  /* lang-switch STAYS visible - Marine's audience arrives on phones and needs FR|EN */
+  .nav-right { gap: 10px; }
+  .lang-switch { font-size: 11px; }
+}
+
+/* Mobile drawer (right-hand, large serif links, per brief). */
+.mobile-nav {
+  position: fixed;
+  inset: 0;
+  background: var(--cream-beige);
+  z-index: 200;
+  display: none;
+  flex-direction: column;
+  padding: var(--header-h) var(--gutter) 40px;
+  overflow-y: auto;
+}
+.mobile-nav.is-open { display: flex; }
+.mobile-nav .mobile-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+.mobile-nav .mobile-top img { height: 32px; }
+.mobile-nav .mobile-close {
+  width: 38px; height: 38px;
+  border-radius: 50%;
+  background: rgba(46,38,32,.06);
+  font-size: 22px; line-height: 1;
+  color: var(--ink);
+  display: grid; place-items: center;
+}
+/* FIX 1 (fix-2 round): drawer links are BLOCK, one per line, full width,
+   44px minimum tap target, hairline rule between. A menu, not a sentence. */
+.mobile-nav a.m-link {
+  display: block;
+  width: 100%;
+  font-family: var(--font-display);
+  font-size: clamp(24px, 6vw, 28px);
+  line-height: 1.15;
+  color: var(--burnt-sienna);
+  padding: 18px 0;
+  min-height: 44px;
+  border-bottom: 1px solid var(--line);
+  box-sizing: border-box;
+}
+.mobile-nav a.m-link:last-child { border-bottom: none; }
+.mobile-nav .mobile-lang {
+  margin-top: 28px;
+  display: flex;
+  gap: 16px;
+  font-size: 15px;
+  letter-spacing: 0.1em;
+}
+.mobile-nav .mobile-cta {
+  margin-top: auto;
+  padding-top: 28px;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.site-footer {
+  background: var(--burnt-sienna);
+  color: var(--cream-soft);
+  padding-block: clamp(56px, 7vw, 88px) 32px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr;
+  gap: clamp(32px, 5vw, 64px);
+}
+@media (max-width: 760px) {
+  .footer-grid { grid-template-columns: 1fr; gap: 40px; }
+}
+.footer-brand .footer-logo { margin-bottom: 16px; }
+.footer-brand .footer-logo img { height: 40px; width: auto; }
+.footer-brand p { font-size: 15px; line-height: 1.6; max-width: 40ch; color: rgba(247,231,201,.85); }
+.footer-col h4 {
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--golden-ochre);
+  margin-bottom: 18px;
+  font-weight: 600;
+}
+.footer-col ul li { margin-bottom: 10px; }
+.footer-col a {
+  font-size: 15px;
+  color: var(--cream-soft);
+  transition: color 150ms ease;
+}
+.footer-col a:hover { color: var(--golden-ochre); }
+
+.newsletter { margin-top: 18px; }
+.newsletter form { display: flex; gap: 8px; }
+.newsletter input {
+  flex: 1;
+  background: rgba(247,231,201,.12);
+  border: 1px solid rgba(247,231,201,.3);
+  border-radius: var(--radius);
+  padding: 12px 16px;
+  color: var(--cream-soft);
+  font-family: var(--font-body);
+  font-size: 14px;
+}
+.newsletter input::placeholder { color: rgba(247,231,201,.5); }
+.newsletter button {
+  background: var(--golden-ochre);
+  color: var(--ink);
+  border-radius: var(--radius);
+  padding: 12px 20px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background-color 150ms ease;
+}
+.newsletter button:hover { background: var(--cream-soft); }
+
+.footer-bottom {
+  margin-top: clamp(40px, 5vw, 64px);
+  padding-top: 24px;
+  border-top: 1px solid rgba(247,231,201,.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  font-size: 13px;
+  color: rgba(247,231,201,.7);
+}
+.footer-bottom .fb-links { display: flex; gap: 20px; flex-wrap: wrap; }
+.footer-bottom a:hover { color: var(--golden-ochre); }
+
+/* ============================================================
+   MOTION - entrance treatment (BATCH 7, ledger row 16)
+   Resolution of the Marine/Manan conflict (LEDGER.md CONFLICT).
+   Allowed: 24px rise + fade, 320ms, cubic-bezier(.2,.7,.2,1), fired ONCE
+   on first entry, never replayed on scroll-back. Nav frost on scroll.
+   Forbidden (kept): hover transforms on images, parallax, scroll-scrub,
+   auto-scroll, autoplay carousels.
+   One custom property (--motion:0) OR prefers-reduced-motion kills it all.
+   ============================================================ */
+.reveal { opacity: 1; }
+.js .reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  /* Manan 00:35 "text slowly fades and opens" - 320ms read as a snap, not a
+     fade. 900ms with a long tail is the difference between UI and atmosphere. */
+  transition: opacity 900ms cubic-bezier(.22,.61,.24,1), transform 900ms cubic-bezier(.22,.61,.24,1);
+  will-change: opacity, transform;
+}
+/* children of a revealed block arrive in sequence, not all at once */
+.js .reveal-seq > * { opacity: 0; transform: translateY(22px);
+  transition: opacity 820ms cubic-bezier(.22,.61,.24,1), transform 820ms cubic-bezier(.22,.61,.24,1); }
+.reveal-seq.is-in > * { opacity: 1; transform: none; }
+.reveal-seq.is-in > :nth-child(1){transition-delay:0ms}
+.reveal-seq.is-in > :nth-child(2){transition-delay:90ms}
+.reveal-seq.is-in > :nth-child(3){transition-delay:180ms}
+.reveal-seq.is-in > :nth-child(4){transition-delay:270ms}
+.reveal-seq.is-in > :nth-child(5){transition-delay:360ms}
+.reveal-seq.is-in > :nth-child(6){transition-delay:450ms}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal, .reveal-seq > * { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .reveal.is-in { opacity: 1; transform: none; }
+}
+:root { --motion: 1; }
+/* If JS sets --motion:0 on <html>, reveal is a no-op. */
+@media (--motion-off) { .reveal { opacity: 1; transform: none; } }
+
+/* ============================================================
+   PATTERN P1 - Full-bleed video band with overlaid type
+   Home hero AND inner-page heroes (ledger row 18).
+   ============================================================ */
+.hero,
+.inner-hero {
+  position: relative;
+  overflow: hidden;
+  background: var(--burnt-sienna);
+}
+.hero-video,
+.inner-hero-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+.hero-scrim,
+.inner-hero-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(180deg, rgba(46,38,32,.42) 0%, rgba(46,38,32,.22) 40%, rgba(46,38,32,.52) 100%);
+}
+
+/* Home hero */
+.hero {
+  height: calc(100vh - var(--header-h));
+  min-height: 540px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: var(--header-h);
+}
+.hero-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  color: var(--cream-soft);
+  padding-inline: var(--gutter);
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+.hero-content h1 {
+  color: var(--cream-soft);
+  font-size: clamp(40px, 6.5vw, 84px);
+  text-shadow: 0 2px 24px rgba(46,38,32,.3);
+}
+.hero-baseline {
+  margin-top: 18px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 10px 14px;
+  font-family: var(--font-body);
+  font-size: clamp(11px, 3vw, 13px);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--cream-soft);
+  max-width: 100%;
+}
+.hero-baseline .rule { width: clamp(12px, 5vw, 28px); height: 1px; background: var(--golden-ochre); flex-shrink: 0; }
+.scroll-cue {
+  position: absolute;
+  bottom: 24px;
+  right: clamp(20px, 5vw, 48px);
+  z-index: 3;
+  font-family: var(--font-body);
+  font-size: 11px;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--cream-soft);
+  text-shadow: 0 1px 8px rgba(46,38,32,.4);
+}
+
+/* Inner-page hero (P1) - clearly not the home hero: min(68vh, 620px) */
+.inner-hero {
+  height: min(68vh, 620px);
+  min-height: 380px;
+  display: flex;
+  align-items: center;
+  margin-top: var(--header-h);
+}
+.inner-hero-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  color: var(--cream-soft);
+}
+.inner-hero-content h1 {
+  color: var(--cream-soft);
+  font-size: clamp(36px, 4.4vw, 60px);
+  text-shadow: 0 2px 24px rgba(46,38,32,.34);
+  max-width: 18ch;
+}
+.inner-hero-content .hero-intro {
+  margin-top: 16px;
+  font-size: clamp(16px, 1.5vw, 19px);
+  line-height: 1.6;
+  color: rgba(251, 247, 240, 0.92);
+  max-width: 46ch;
+}
+@media (max-width: 900px) {
+  .hero { min-height: 480px; }
+  .inner-hero { height: 60vh; min-height: 340px; }
+}
+
+/* ============================================================
+   PATTERN P2 - Balanced split, image + text equal height,
+   copy clamped with Read more (ledger rows 15, 19, 20)
+   Model: home S3 "Je suis Marine" (frame t166.jpg).
+   ============================================================ */
+.about-split .split,
+.p2-split .split { align-items: center; }
+.p2-img { border-radius: var(--radius); overflow: hidden; }
+.p2-img img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 30%; }
+.p2-text h2,
+.about-split .about-text h2 { margin-bottom: 8px; }
+.p2-text p,
+.about-split p { margin-bottom: 16px; }
+.p2-text p:last-child,
+.about-split p:last-child { margin-bottom: 0; }
+
+.about-split .role-stack {
+  font-family: var(--font-body);
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  color: var(--terracotta);
+  margin-bottom: 24px;
+  font-weight: 500;
+}
+.about-split .role-stack span { display: block; }
+.about-link {
+  display: inline-block;
+  margin-top: 8px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  color: var(--burnt-sienna);
+  transition: color 150ms ease;
+}
+.about-link:hover { color: var(--terracotta); }
+
+/* Read-more clamp (row 20): copy collapses to the image height, expands on click. */
+.readmore { position: relative; }
+.readmore .rm-collapsed {
+  max-height: var(--rm-h, 9.5em);
+  overflow: hidden;
+}
+.readmore.is-open .rm-collapsed { max-height: none; }
+.readmore .rm-fade {
+  position: absolute;
+  left: 0; right: 0; bottom: 1.7em;
+  height: 3em;
+  background: linear-gradient(180deg, transparent, var(--cream-soft));
+  pointer-events: none;
+  transition: opacity 200ms ease;
+}
+.readmore.is-open .rm-fade { opacity: 0; }
+.readmore .rm-btn {
+  margin-top: 12px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--terracotta);
+  padding: 0;
+  transition: color 150ms ease;
+}
+.readmore .rm-btn:hover { color: var(--burnt-sienna); }
+.section--soft .readmore .rm-fade { background: linear-gradient(180deg, transparent, var(--cream-soft)); }
+.readmore .rm-btn[aria-expanded="true"]::after { content: " −"; }
+.readmore .rm-btn[aria-expanded="false"]::after { content: " +"; }
+
+/* ============================================================
+   PATTERN P3 - Offset image pair (masgirbau, row 33)
+   Two images at different sizes and vertical offsets, type in the gutter.
+   ============================================================ */
+.p3-offset {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(20px, 3vw, 40px);
+  align-items: center;
+}
+.p3-offset .p3-img-a { aspect-ratio: 3 / 4; border-radius: var(--radius); overflow: hidden; transform: translateY(0); }
+.p3-offset .p3-img-b { aspect-ratio: 4 / 5; border-radius: var(--radius); overflow: hidden; transform: translateY(clamp(40px, 6vw, 80px)); margin-top: clamp(-40px, -6vw, -80px); }
+.p3-offset .p3-img-a img,
+.p3-offset .p3-img-b img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+.p3-offset .p3-text { grid-column: 1 / -1; max-width: 56ch; margin-inline: auto; text-align: center; margin-top: clamp(24px, 4vw, 48px); }
+@media (max-width: 760px) {
+  .p3-offset { grid-template-columns: 1fr 1fr; gap: 16px; }
+  .p3-offset .p3-img-b { transform: translateY(24px); margin-top: -24px; }
+}
+
+/* ============================================================
+   PATTERN P4 - Circular thumbnail row (masgirbau, row 33)
+   Round images with labels beneath, horizontally scrollable (row 11).
+   Native touch/swipe on mobile, arrows kept for desktop.
+   ============================================================ */
+.p4-circles {
+  display: flex;
+  gap: clamp(20px, 3vw, 40px);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: auto;
+  padding-bottom: 12px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-overflow-scrolling: touch; /* native swipe on mobile (row 11) */
+}
+.p4-circles::-webkit-scrollbar { display: none; }
+.p4-circle {
+  flex: 0 0 clamp(140px, 16vw, 200px);
+  scroll-snap-align: start;
+  text-align: center;
+}
+.p4-circle .p4-ring {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 1px solid var(--line);
+}
+.p4-circle .p4-ring img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; }
+.p4-circle .p4-label {
+  margin-top: 14px;
+  font-family: var(--font-display);
+  font-size: clamp(18px, 1.8vw, 22px);
+  color: var(--burnt-sienna);
+}
+
+/* ============================================================
+   PATTERN P5 - Full-bleed image band, edge to edge, type below
+   Breaks the container edge (symptom 2). One big breath.
+   ============================================================ */
+.p5-bleed { position: relative; width: 100%; }
+/* 21:9 forced a portrait shot into a letterbox and cropped the subject's head
+   (Manan 00:56 "here also this is not proper"). Landscape source + a gentler
+   16:7 means the crop is a choice, not damage. */
+.p5-bleed .p5-img { width: 100%; aspect-ratio: 16 / 7; object-fit: cover; object-position: center 50%; }
+@media(max-width:820px){ .p5-bleed .p5-img{ aspect-ratio: 4 / 3; } }
+.p5-bleed .p5-caption {
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding: clamp(24px, 3vw, 36px) var(--gutter) 0;
+}
+
+/* ============================================================
+   PATTERN P6 - Numbered methodology stack (Become a Yogi, row 34)
+   Large numeral, rule, text, (generated) image per step.
+   ============================================================ */
+.p6-stack { display: grid; gap: clamp(20px, 3vw, 32px); }
+.p6-step {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: clamp(20px, 3vw, 40px);
+  align-items: start;
+  padding-block: clamp(20px, 2.6vw, 32px);
+  border-top: 1px solid var(--line);
+}
+.p6-step:last-child { border-bottom: 1px solid var(--line); }
+.p6-num {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 6vw, 84px);
+  line-height: 1;
+  color: var(--terracotta);
+  min-width: 1.2em;
+}
+.p6-body { padding-top: 0.4em; }
+.p6-body h3 { font-size: clamp(22px, 2.4vw, 30px); margin-bottom: 10px; }
+.p6-body p { font-size: 16px; line-height: 1.65; }
+.p6-body .p6-figure { margin-top: 18px; border-radius: var(--radius); overflow: hidden; max-width: 520px; }
+.p6-body .p6-figure img { width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+@media (max-width: 760px) {
+  .p6-step { grid-template-columns: 1fr; gap: 12px; }
+}
+
+/* ============================================================
+   PATTERN P7 - Quiet centred statement
+   One sentence, huge type, generous space. Creates rhythm (symptom 1).
+   ============================================================ */
+.p7-statement {
+  max-width: 24ch;
+  margin-inline: auto;
+  text-align: center;
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 48px);
+  line-height: 1.18;
+  color: var(--burnt-sienna);
+  letter-spacing: -0.01em;
+}
+.p7-statement .p7-quiet { color: var(--warm-brown); }
+.section--sienna .p7-statement,
+.section--olive .p7-statement { color: var(--cream-soft); }
+.section--sienna .p7-statement .p7-quiet,
+.section--olive .p7-statement .p7-quiet { color: rgba(247,231,201,.78); }
+
+/* ============================================================
+   PATTERN P8 - Gradient bleed transition (row 10)
+   A section whose ground melts into the next. Kills the hard boundary.
+   Applied by adding .p8-bleed-top and/or .p8-bleed-bottom to a .section.
+   ============================================================ */
+.section.p8-bleed-top { padding-top: calc(var(--section-pad-y) + 24px); }
+.section.p8-bleed-bottom { padding-bottom: calc(var(--section-pad-y) + 24px); }
+.p8-cream-to-soft {
+  background: linear-gradient(180deg, var(--cream-beige) 0%, var(--cream-soft) 100%);
+}
+.p8-soft-to-cream {
+  background: linear-gradient(180deg, var(--cream-soft) 0%, var(--cream-beige) 100%);
+}
+.p8-cream-to-sienna {
+  background: linear-gradient(180deg, var(--cream-beige) 0%, var(--burnt-sienna) 100%);
+  color: var(--cream-soft);
+}
+.p8-cream-to-sienna h1, .p8-cream-to-sienna h2, .p8-cream-to-sienna h3 { color: var(--cream-soft); }
+
+/* ============================================================
+   PATTERN P9 - Editorial pull-quote over texture
+   Marine's voice moments on /a-propos.
+   ============================================================ */
+.p9-quote {
+  max-width: 20ch;
+  margin-inline: auto;
+  text-align: center;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(26px, 3.6vw, 42px);
+  line-height: 1.25;
+  color: var(--burnt-sienna);
+  position: relative;
+}
+.p9-quote::before {
+  content: "\201C";
+  display: block;
+  font-size: 1.4em;
+  line-height: 0.6;
+  color: var(--golden-ochre);
+  margin-bottom: 12px;
+}
+.p9-attribution {
+  margin-top: 20px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--terracotta);
+  text-align: center;
+}
+.section--sienna .p9-quote,
+.section--olive .p9-quote { color: var(--cream-soft); }
+
+/* ============================================================
+   PATTERN P10 - Sticky-caption scroll column (one per site, /retraites)
+   Caption holds while images pass.
+   ============================================================ */
+.p10-sticky {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(32px, 5vw, 64px);
+  align-items: start;
+}
+.p10-caption {
+  position: sticky;
+  /* the pill nav is fixed and floats, so it needs clearing by more than its
+     own height or the eyebrow parks underneath it */
+  top: calc(var(--header-h) + 48px);
+  align-self: start;
+}
+.p10-caption h2 { margin-bottom: 12px; }
+.p10-caption p { color: var(--warm-brown); }
+.p10-gallery { display: grid; gap: clamp(16px, 2vw, 24px); }
+.p10-gallery figure { border-radius: var(--radius); overflow: hidden; }
+.p10-gallery img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 30%; }
+.p10-gallery figcaption {
+  padding: 12px 4px 0;
+  font-size: 13px;
+  color: var(--warm-brown);
+}
+@media (max-width: 860px) {
+  .p10-sticky { grid-template-columns: 1fr; }
+  .p10-caption { position: static; }
+}
+
+/* ============================================================
+   HOME - S2 circular menu (P4) - replaces arrow-only rail (row 11)
+   Wider, native swipe on mobile, arrows kept for desktop, intro centred (row 14).
+   ============================================================ */
+.menu-section { background: var(--cream-beige); }
+.menu-section h2 {
+  text-align: center;
+  max-width: 22ch;
+  margin-inline: auto;
+  margin-bottom: 20px;
+}
+.menu-intro-top { text-align: center; max-width: 64ch; margin: 0 auto 48px; color: var(--warm-brown); }
+
+.menu-rail-wrap { position: relative; }
+.menu-rail-wrap .menu-arrows {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 32px;
+}
+.menu-arrow {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 1.5px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: var(--ink);
+  transition: border-color 150ms ease, color 150ms ease;
+}
+.menu-arrow:hover { border-color: var(--terracotta); color: var(--terracotta); }
+.menu-arrow:focus-visible { outline: 2px solid var(--terracotta); outline-offset: 2px; }
+.menu-arrow:disabled,
+.menu-arrow[aria-disabled="true"] { opacity: 0.3; cursor: default; }
+
+.menu-body { margin-top: 56px; max-width: 64ch; margin-inline: auto; text-align: center; }
+.menu-body p { margin-bottom: 18px; color: var(--ink); margin-inline: auto; }
+.menu-body .menu-cta { margin-top: 8px; }
+
+/* ============================================================
+   Utilities
+   ============================================================ */
+.center { text-align: center; }
+.mt-s { margin-top: 16px; }
+.mt-m { margin-top: 32px; }
+.mt-l { margin-top: 56px; }
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px;
+  padding: 0; margin: -1px; overflow: hidden;
+  clip: rect(0,0,0,0); white-space: nowrap; border: 0;
+}
+
+/* ============================================================
+   INNER PAGES - shared building blocks (kept from prior build,
+   script-font references stripped)
+   ============================================================ */
+
+/* Section eyebrow + heading rhythm */
+.section-head { margin-bottom: clamp(28px, 4vw, 44px); }
+.section-head h2 { margin-top: 12px; max-width: 22ch; }
+.section-head .section-intro { margin-top: 16px; color: var(--warm-brown); max-width: 60ch; }
+.section-head.centered { text-align: center; }
+.section-head.centered h2,
+.section-head.centered .section-intro { margin-inline: auto; }
+
+/* FIX 4: dead space under inner heroes (rows 12, 13). The first section after a
+   video hero butts close to it - 48px desktop / 32px mobile padding-top, not the full
+   --section-pad-y. And the split inside it top-aligns so centered text columns do not
+   leave a tall gap above themselves when paired with a tall image. */
+.inner-hero + section,
+.inner-hero + .p5-bleed { padding-top: 48px; }
+.inner-hero + section .split { align-items: start; padding-top: 0; }
+@media (max-width: 860px) {
+  .inner-hero + section,
+  .inner-hero + .p5-bleed { padding-top: 32px; }
+  .inner-hero + section .split { align-items: center; }
+}
+
+/* Long-form prose block */
+.prose { max-width: 64ch; }
+.prose p { margin-bottom: 18px; }
+.prose p:last-child { margin-bottom: 0; }
+.prose .lead { margin-bottom: 22px; }
+
+/* Generic split text/img */
+.split-img .frame img { aspect-ratio: 4 / 5; object-position: center 30%; }
+.split-text h2 { margin-bottom: 16px; }
+.split-text p { margin-bottom: 16px; }
+.split-text p:last-child { margin-bottom: 0; }
+
+/* --- Flow diagram (3 connected stages) - kept, used inside P6 --- */
+.flow {
+  display: grid;
+  gap: clamp(16px, 2.5vw, 28px);
+  align-items: stretch;
+}
+@media (min-width: 901px) {
+  .flow { grid-template-columns: 1fr auto 1fr auto 1fr; }
+}
+@media (max-width: 900px) {
+  .flow { grid-template-columns: 1fr; }
+}
+.flow-node {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--cream-soft);
+  padding: clamp(22px, 2.6vw, 32px);
+  display: flex;
+  flex-direction: column;
+}
+.flow-num {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  color: var(--terracotta);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.flow-node h3 { font-size: clamp(22px, 2.4vw, 28px); margin-top: 10px; margin-bottom: 14px; }
+.flow-node p { font-size: 15px; line-height: 1.6; }
+.flow-node p + p { margin-top: 12px; }
+.flow-arrow { display: flex; align-items: center; justify-content: center; color: var(--terracotta); min-width: 28px; }
+.flow-arrow::before { content: "\2192"; font-size: 24px; line-height: 1; }
+@media (max-width: 900px) { .flow-arrow::before { content: "\2193"; } }
+
+/* --- Chips --- */
+.chips-label {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--warm-brown);
+  margin-top: 20px;
+  margin-bottom: 12px;
+}
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 500;
+  padding: 6px 12px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--warm-brown);
+  background: var(--cream-beige);
+}
+
+/* --- Signs / blocking-mechanism cards --- */
+.signs { display: grid; gap: clamp(16px, 2vw, 24px); }
+@media (min-width: 861px) { .signs { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 860px) { .signs { grid-template-columns: 1fr; } }
+.sign-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--cream-soft);
+  padding: clamp(20px, 2.4vw, 28px);
+}
+.sign-card .sign-num {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.24em;
+  color: var(--terracotta);
+  font-weight: 600;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.sign-card h3 { font-size: 20px; margin-bottom: 12px; }
+.sign-card p { font-size: 15px; line-height: 1.6; margin-bottom: 12px; }
+.sign-card p:last-child { margin-bottom: 0; }
+.sign-card blockquote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 18px;
+  color: var(--terracotta);
+  border-left: 2px solid var(--golden-ochre);
+  padding-left: 14px;
+  margin: 12px 0 0;
+}
+
+/* --- Pricing cards (middle lifted) - kept, it is a price table --- */
+.pricing { display: grid; gap: clamp(16px, 2vw, 24px); align-items: start; }
+@media (min-width: 861px) { .pricing { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 860px) { .pricing { grid-template-columns: 1fr; } }
+.price-card {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--cream-soft);
+  padding: clamp(24px, 2.6vw, 36px);
+  display: flex;
+  flex-direction: column;
+}
+.price-card--featured { border: 1.5px solid var(--burnt-sienna); background: var(--cream-beige); }
+@media (min-width: 861px) { .price-card--featured { transform: translateY(-14px); } }
+.price-num {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  color: var(--terracotta);
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.price-card h3 { font-size: clamp(22px, 2.4vw, 28px); margin-top: 10px; margin-bottom: 6px; }
+.price-tagline { font-family: var(--font-body); font-size: 14px; color: var(--warm-brown); margin-bottom: 18px; }
+.price-card p { font-size: 15px; line-height: 1.6; margin-bottom: 14px; }
+.price-card .deliv-label {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--warm-brown);
+  margin-top: 6px;
+  margin-bottom: 10px;
+}
+.price-card ul.ticklist { margin-bottom: 20px; }
+.price-card ul.ticklist li {
+  font-size: 15px;
+  line-height: 1.5;
+  padding-left: 22px;
+  position: relative;
+  margin-bottom: 8px;
+}
+.price-card ul.ticklist li::before {
+  content: "\00B7";
+  position: absolute;
+  left: 8px;
+  top: -2px;
+  color: var(--terracotta);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1;
+}
+.price-meta {
+  font-family: var(--font-display);
+  font-size: 22px;
+  color: var(--burnt-sienna);
+  margin-top: auto;
+  margin-bottom: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+.price-card .btn { align-self: flex-start; }
+
+/* --- Certification grid (6 items) - icons via generated marks (row 24) --- */
+.cert-grid { display: grid; gap: clamp(14px, 2vw, 20px); }
+@media (min-width: 701px) { .cert-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 700px) { .cert-grid { grid-template-columns: 1fr; } }
+.cert-item {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--cream-soft);
+  padding: clamp(20px, 2.4vw, 26px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+/* Cert marks: viewBox is tight (path bbox + 8% pad), so a fixed 44px height with
+   width:auto renders every mark at the same ink height regardless of its aspect.
+   No letterboxing — the box IS the ink, plus a small consistent margin. */
+/* Fixed square box so every row's label starts at the same x, with the mark
+   scaled to fit inside it. The viewBoxes are now tight to the ink (cert-size
+   round), so contain no longer letterboxes to different optical sizes. */
+.cert-picto { display: flex; align-items: center; justify-content: center; width: 48px; height: 48px; flex: 0 0 48px; }
+.cert-picto img { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
+.cert-picto svg { max-width: 100%; max-height: 100%; object-fit: contain; }
+.cert-item p { font-size: 15px; line-height: 1.5; color: var(--ink); }
+
+/* --- Expandable groups (native details/summary) --- */
+.accord { border: 1px solid var(--line); border-radius: var(--radius); background: var(--cream-soft); overflow: hidden; }
+.accord + .accord { margin-top: 12px; }
+.accord summary {
+  cursor: pointer;
+  padding: clamp(18px, 2.4vw, 24px) clamp(20px, 2.4vw, 28px);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  font-family: var(--font-display);
+  font-size: clamp(19px, 2.2vw, 24px);
+  color: var(--burnt-sienna);
+  list-style: none;
+  transition: color 150ms ease;
+}
+.accord summary::-webkit-details-marker { display: none; }
+.accord summary:hover { color: var(--terracotta); }
+.accord summary .plus { flex-shrink: 0; width: 20px; height: 20px; position: relative; color: var(--terracotta); }
+.accord summary .plus::before,
+.accord summary .plus::after { content: ""; position: absolute; background: currentColor; transition: opacity 150ms ease; }
+.accord summary .plus::before { left: 2px; right: 2px; top: 50%; height: 1.5px; transform: translateY(-50%); }
+.accord summary .plus::after { top: 2px; bottom: 2px; left: 50%; width: 1.5px; transform: translateX(-50%); }
+.accord[open] summary .plus::after { opacity: 0; }
+.accord-body { padding: 0 clamp(20px, 2.4vw, 28px) clamp(20px, 2.4vw, 26px); }
+.accord-body p { font-size: 15px; line-height: 1.6; margin-bottom: 12px; }
+.accord-body p:last-child { margin-bottom: 0; }
+
+/* --- Forms (contact / communaute / retreats enquiry) --- */
+.ss-form {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--cream-soft);
+  padding: clamp(24px, 3vw, 36px);
+  max-width: 640px;
+}
+.ss-form--wide { max-width: 760px; }
+.ss-field { margin-bottom: 18px; }
+.ss-field:last-of-type { margin-bottom: 24px; }
+.ss-field label {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--warm-brown);
+  margin-bottom: 8px;
+}
+.ss-field input,
+.ss-field select,
+.ss-field textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  background: var(--cream-beige);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 15px;
+  transition: border-color 150ms ease;
+}
+.ss-field input:focus,
+.ss-field select:focus,
+.ss-field textarea:focus { outline: none; border-color: var(--terracotta); }
+.ss-field textarea { min-height: 140px; resize: vertical; }
+.ss-submit {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: 13px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 600;
+  padding: 14px 28px;
+  border-radius: var(--radius);
+  background: var(--terracotta);
+  color: var(--cream-soft);
+  border: none;
+  cursor: pointer;
+  transition: background-color 150ms ease;
+}
+.ss-submit:hover { background: var(--burnt-sienna); }
+
+/* --- Placeholder blocks (booking embed, testimonials) --- */
+.placeholder {
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  background: var(--cream-soft);
+  padding: clamp(36px, 5vw, 64px);
+  text-align: center;
+  color: var(--warm-brown);
+}
+.placeholder .ph-label {
+  font-family: var(--font-body);
+  font-size: 12px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--terracotta);
+  line-height: 1.4;
+}
+
+/* --- Footnote / sources --- */
+.footnote { font-size: 13px; color: var(--warm-brown); line-height: 1.55; margin-top: 6px; }
+.sources { margin-top: clamp(28px, 4vw, 40px); padding-top: 20px; border-top: 1px solid var(--line); }
+.sources .eyebrow { margin-bottom: 10px; }
+.sources p { font-size: 13px; color: var(--warm-brown); line-height: 1.55; }
+
+/* --- Contact links block --- */
+.contact-links { display: flex; flex-wrap: wrap; gap: clamp(16px, 3vw, 32px); margin-top: 20px; }
+.contact-links a {
+  font-family: var(--font-body);
+  font-size: 15px;
+  color: var(--burnt-sienna);
+  transition: color 150ms ease;
+}
+.contact-links a:hover { color: var(--terracotta); }
+
+/* ============================================================
+   WATER HERO + OPENING SEQUENCE                     (7 Aug 2026)
+   Manan's brief: cursor-reactive water at sunset; the three-word
+   tagline opens FIRST at its final size and never moves; the hero
+   then bleeds into the next section instead of cutting.
+   ============================================================ */
+
+.hero{position:relative;height:100svh;min-height:600px;display:flex;align-items:center;
+  justify-content:center;overflow:hidden;margin-top:0;background:var(--cream-beige)}
+
+/* still image = the base layer and the no-WebGL / reduced-motion fallback */
+.hero-still,.water-canvas{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block}
+.hero-still{z-index:0;opacity:1;transition:opacity 900ms ease}
+.js .hero-still{opacity:0}
+.js .hero-scrim{opacity:0}
+.water-canvas{z-index:1;opacity:0;transition:opacity 900ms ease;pointer-events:none}
+.hero.is-lit .hero-still{opacity:1}
+.hero.is-lit.gl-ready .water-canvas{opacity:1}
+.hero.is-lit.gl-ready .hero-still{opacity:0}       /* canvas takes over cleanly */
+
+.hero-scrim{position:absolute;inset:0;z-index:2;pointer-events:none;opacity:1;
+  transition:opacity 900ms ease;
+  background:linear-gradient(180deg,rgba(46,38,32,.34) 0%,rgba(46,38,32,.10) 38%,rgba(46,38,32,.46) 100%)}
+.hero.is-lit .hero-scrim{opacity:1}
+
+.hero-content{position:relative;z-index:3;text-align:center;padding:0 var(--gutter)}
+
+/* the headline occupies its space immediately, invisible, so nothing below shifts */
+.hero-h1{opacity:1;transform:none;
+  transition:opacity 900ms cubic-bezier(.2,.7,.2,1),transform 900ms cubic-bezier(.2,.7,.2,1);
+  color:var(--cream-soft);margin:0}
+.js .hero-h1{opacity:0;transform:translateY(14px)}
+.seq-open .hero-h1{opacity:1;transform:none}
+
+/* TAGLINE — identical box before and after. Only colour and blur change. */
+.hero-tag{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:18px;
+  font-family:var(--font-body);font-size:13px;letter-spacing:.34em;text-transform:uppercase;
+  color:var(--cream-soft);transition:color 900ms ease 200ms}
+.js .hero-tag{color:var(--burnt-sienna)}
+.js.seq-open .hero-tag{color:var(--cream-soft)}
+.hero-tag .w,.hero-tag .sep{display:inline-block;opacity:1;filter:none;
+  transition:opacity 760ms cubic-bezier(.2,.7,.2,1),filter 760ms cubic-bezier(.2,.7,.2,1)}
+/* separators stay quiet so the eye reads three WORDS arriving, not five things */
+.hero-tag .sep{transition-duration:400ms}
+.js .hero-tag .w,.js .hero-tag .sep{opacity:0;filter:blur(10px)}
+.hero-tag .sep{opacity:.5}
+.hero-tag .w.is-in,.hero-tag .sep.is-in{opacity:1;filter:blur(0)}
+.hero-tag .sep.is-in{opacity:.5}
+
+.scroll-cue{opacity:1;transition:opacity 700ms ease 300ms}
+.js .scroll-cue{opacity:0}
+.seq-open .scroll-cue{opacity:1}
+
+/* header and page stay out of the way while the words resolve */
+.seq-running .site-header{opacity:0;pointer-events:none}
+.site-header{transition:opacity 700ms ease}
+.seq-running{overflow:hidden}
+
+/* THE BLEED — hero dissolves into the next section instead of cutting (00:27) */
+.hero-bleed{position:absolute;left:0;right:0;bottom:-1px;height:26vh;z-index:4;pointer-events:none;
+  background:linear-gradient(180deg,rgba(247,231,201,0) 0%,rgba(247,231,201,.55) 55%,var(--cream-beige) 100%)}
+
+@media (max-width:900px){
+  .hero-tag{gap:9px;font-size:11px;letter-spacing:.26em}
+  .hero-bleed{height:18vh}
+}
+@media (prefers-reduced-motion:reduce){
+  .hero-still{opacity:1}
+  .hero-scrim{opacity:1}
+  .hero-h1,.hero-tag .w,.hero-tag .sep,.scroll-cue{opacity:1;filter:none;transform:none;transition:none}
+  .hero-tag{color:var(--cream-soft)}
+}
+
+/* ---- Certifications: compact, one line each (Manan 01:02) ---------------
+   Was a p6-stack: six full-width rows, big vertical gaps, ~1400px tall for
+   six short facts. Now a two-column grid, each cert on a single line. */
+.cert-grid{display:grid;grid-template-columns:1fr 1fr;gap:2px 40px;margin-top:34px;
+  border-top:1px solid var(--line)}
+.cert-row{display:flex;align-items:center;gap:16px;padding:18px 0;
+  border-bottom:1px solid var(--line)}
+.cert-row .cert-picto{width:34px;height:34px;flex:0 0 34px;display:flex;
+  align-items:center;justify-content:center}
+.cert-row .cert-picto img{max-width:100%;max-height:100%;width:auto;height:auto;
+  object-fit:contain;display:block;opacity:.9}
+.cert-body{min-width:0;display:flex;flex-direction:column;gap:2px}
+.cert-body h3{font-family:var(--font-display);font-size:17px;font-weight:500;
+  color:var(--burnt-sienna);margin:0;line-height:1.25}
+.cert-gloss{font-size:13px;line-height:1.4;color:var(--warm-brown);opacity:.85}
+@media(max-width:820px){
+  .cert-grid{grid-template-columns:1fr;gap:0}
+  .cert-row{padding:15px 0;gap:13px}
+  .cert-body h3{font-size:15.5px}
+  .cert-gloss{font-size:12.5px}
+}
+
+/* ---- Section transitions: bleed, don't cut (Manan 00:27) ----------------
+   "there can be maybe gradient here, I don't want it to cut over here."
+   Any section that changes ground colour gets a soft dissolve into the next
+   instead of a hard horizontal line. Purely decorative, no layout impact. */
+.section, .p8-bleed { position: relative; }
+
+
+
+
+
+/* full-bleed image bands get a cream feather top and bottom so they sit IN the
+   page rather than being pasted onto it */
+.p5-bleed{position:relative}
+/* The feather must sit over the IMAGE only. When it was anchored to the section
+   it covered the caption below and faded Marine's copy into nothing, which is
+   what Manan's screenshot of "Dix annees" was showing. */
+.p5-bleed{display:flex;flex-direction:column}
+.p5-media{position:relative}
+.p5-bleed .p5-media::before,.p5-bleed .p5-media::after{
+  content:"";position:absolute;left:0;right:0;height:12vh;pointer-events:none;z-index:2}
+.p5-bleed .p5-media::before{top:0;background:linear-gradient(180deg,var(--cream-beige) 0%,rgba(247,231,201,0) 100%)}
+.p5-bleed .p5-media::after{bottom:0;background:linear-gradient(0deg,var(--cream-beige) 0%,rgba(247,231,201,0) 100%)}
+.p5-bleed .p5-caption{position:relative;z-index:3}
+
+@media(max-width:820px){
+  .section + .section::before{top:-44px;height:44px}
+  .band-dark::before{top:-56px;height:56px}
+  .p5-bleed::before,.p5-bleed::after{height:9vh}
+}
+
+/* ---- Split sections: image and text ALWAYS the same height --------------
+   Manan 00:45 "this entire section does not look nice... and there is that
+   multiple times across the website", and 03:24-03:38 "the text and the image
+   balance should be very similar, the height should be the same".
+
+   Root cause: .split was `align-items:center` with a fixed 4/5 aspect image.
+   The text column sets the row height, the image floats centred inside it, and
+   the difference shows as ragged dead space. Stretching the image to the row
+   makes the two columns equal by construction, whatever the copy length. */
+.split{align-items:stretch}
+.split > *{min-width:0}
+.split .frame,.split .about-img,.split .split-img{display:flex}
+.split .frame img,.split .about-img img,.split .split-img img{
+  width:100%;height:100%;min-height:340px;object-fit:cover;display:block}
+/* the text column centres itself inside its (now equal) cell */
+.split .about-text,.split .split-text{display:flex;flex-direction:column;justify-content:center}
+
+@media(max-width:860px){
+  .split{align-items:start}
+  .split .frame img,.split .about-img img,.split .split-img img{
+    height:auto;aspect-ratio:4/5;min-height:0}
+}
+
+/* the read-more clamp now has a job: keep the column near the image height
+   rather than letting four paragraphs set the section height */
+.rm-collapsed{--rm-h:9.5em}
+@media(max-width:860px){ .rm-collapsed{--rm-h:11em} }
+
+/* ---- Read-more: fade the TEXT, not a coloured box over it ---------------
+   BUG (visible in Manan's screenshots, 7 Aug): .rm-fade painted a gradient to
+   --cream-soft on top of the copy. On any section whose ground is cream-beige
+   (or sienna) that gradient is a different colour from what is behind it, so it
+   rendered as a pale grey slab across the middle of a paragraph.
+
+   Masking the container fades the glyphs themselves to transparent, so it is
+   correct on every background by construction and needs no colour matching. */
+.readmore .rm-fade{display:none !important}
+.readmore .rm-collapsed{
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,#000 62%,rgba(0,0,0,0) 100%);
+          mask-image:linear-gradient(180deg,#000 0%,#000 62%,rgba(0,0,0,0) 100%)}
+.readmore.is-open .rm-collapsed{-webkit-mask-image:none;mask-image:none}
+
+/* ---- No headline may be clipped by the viewport ------------------------
+   BUG: "Vous n'avez pas besoin de plus de volonté" ran off the right edge on
+   the sienna band. Long French words + a fixed clamp overflowed the container. */
+/* hyphens:auto broke French words mid-stem (com-mençait, organi-sation).
+   overflow-wrap alone prevents overflow without inventing hyphens. */
+h1,h2,h3,.p9-quote,blockquote{overflow-wrap:break-word;hyphens:manual;-webkit-hyphens:manual}
+.section--sienna h2,.band-dark h2,.p8-cta h2{
+  max-width:22ch;margin-inline:auto;font-size:clamp(28px,3.6vw,52px);line-height:1.12}
+
+
+/* ---- Cert marks were rendering at ~10px, unreadable --------------------- */
+.cert-row .cert-picto{width:46px;height:46px;flex:0 0 46px}
+.cert-row .cert-picto img{min-width:30px;opacity:1}
+@media(max-width:820px){
+  .cert-row .cert-picto{width:38px;height:38px;flex:0 0 38px}
+}
+
+/* ---- Nothing may exceed the viewport, anywhere -------------------------- */
+img,video,canvas,svg{max-width:100%}
+.split > *{overflow:hidden}
+
+/* ---- Fixes from Manan's screen walkthrough, 7 Aug ----------------------- */
+
+/* 1. The floating nav was covering section headings on scroll. Anchor jumps and
+      in-page scrolling now stop below it. */
+html{scroll-padding-top:calc(var(--header-h) + 34px)}
+
+/* 2. The sienna pull-quote was dark-on-dark and near unreadable. */
+.section--sienna,.band-dark{color:var(--cream-soft)}
+.section--sienna .p9-quote,.band-dark .p9-quote,.section--sienna blockquote{
+  color:var(--cream-soft);opacity:1}
+.section--sienna .eyebrow,.band-dark .eyebrow{color:var(--golden-ochre);opacity:1}
+.section--sienna .p9-attribution,.band-dark .p9-attribution{color:rgba(247,231,201,.82)}
+.section--sienna p,.band-dark p{color:rgba(247,231,201,.92)}
+/* the decorative top gradient must never sit over the type */
+.band-dark::before{z-index:0}
+.band-dark .container{position:relative;z-index:1}
+
+/* 3. The circular menu rail was clipping its last card at the viewport edge. */
+.p4-circles,.menu-rail{scroll-padding-inline:var(--gutter);padding-inline:var(--gutter)}
+.p4-circles::after,.menu-rail::after{content:"";flex:0 0 var(--gutter)}
+
+/* 4. Split sections where one column is empty read as a dead half-page.
+      If a split has only one child with content, let it use the full measure. */
+.split:has(> :only-child){grid-template-columns:1fr}
+.split > .col-empty{display:none}
+
+/* 5. Read-more copy was being clipped by the section edge rather than fading
+      inside it. Give the collapsed block room to finish its fade. */
+.readmore{padding-bottom:6px}
+.readmore .rm-collapsed{padding-bottom:2px}
+
+/* ---- P6 numbered stack: give the empty right column its image -----------
+   Manan's full-page capture of /la-methode shows numeral + copy occupying the
+   left ~55% and the entire right half as empty cream. The pattern was always
+   specified with an image per step (ledger row 26); the images were never
+   added, so the void was the pattern half-built. */
+
+.p6-media{align-self:stretch;border-radius:var(--radius);overflow:hidden;
+  border:1px solid var(--line);min-height:210px}
+.p6-media img{width:100%;height:100%;min-height:210px;object-fit:cover;display:block}
+@media(max-width:980px){
+  .p6-step{grid-template-columns:auto minmax(0,1fr)}
+  .p6-media{grid-column:1 / -1;margin-top:16px;min-height:180px}
+  .p6-media img{min-height:180px}
+}
+
+/* Any remaining split whose second column is genuinely empty should not
+   reserve half the page for nothing: it centres on a readable measure. */
+.split.is-solo,.p6-stack.is-solo{grid-template-columns:1fr;max-width:min(74ch,100%);margin-inline:auto}
+
+
+/* ---- P5 caption: editorial two-column so the right half is not dead space -- */
+.p5-caption{display:grid;grid-template-columns:minmax(0,0.9fr) minmax(0,1.1fr);
+  gap:clamp(24px,4vw,64px);align-items:start;
+  padding-block:clamp(30px,3.4vw,44px) clamp(8px,1vw,14px)}
+/* Only the eyebrow was placed, so the h2 auto-flowed into column 2 and the copy
+   dropped to column 1 of the next row: kicker left, heading right, body left and
+   far below it, with a hole under each. Place all three explicitly so the block
+   reads as one editorial spread, heading left, body right, tops aligned. */
+.p5-caption h2{margin:8px 0 0 !important;max-width:none !important;grid-column:1;grid-row:2}
+.p5-caption .prose{margin:0 !important;max-width:62ch !important;grid-column:2;grid-row:1 / span 2}
+.p5-caption .eyebrow{grid-column:1;grid-row:1;display:block}
+@media(max-width:900px){
+  .p5-caption h2,.p5-caption .prose,.p5-caption .eyebrow{grid-column:1;grid-row:auto}
+}
+@media(max-width:900px){ .p5-caption{grid-template-columns:1fr;gap:16px} }
+
+/* form status line */
+.ss-form-note{margin-top:14px;font-size:14px;line-height:1.5;color:var(--warm-brown)}
+.ss-form-note a{color:var(--burnt-sienna);text-decoration:underline;text-underline-offset:3px}
+
+
+/* ---- P6 step: image floats right of the copy ---------------------------
+   Grid spanning produced an empty tall first row whenever the image was taller
+   than the eyebrow. A float needs no row model at all: the copy simply wraps
+   around it, which is the magazine behaviour this section wanted. */
+/* The step media used to float right inside the body. With three lines of copy
+   and a 4:3 image, the image was 269 px tall against ~90 px of text, so every
+   row carried about 180 px of dead space under the words. Manan's note was
+   "there is a lot of empty space here". Giving the media its own stretched
+   column ties its height to the row instead of dictating it, so a row is never
+   taller than the copy inside it. */
+.p6-body{display:block;min-width:0}
+.p6-step{grid-template-columns:auto minmax(0,1fr) minmax(230px,300px)}
+.p6-step .p6-media{align-self:stretch;min-height:190px;
+  border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)}
+.p6-step .p6-media img{width:100%;height:100%;object-fit:cover;display:block}
+@media(max-width:980px){
+  .p6-step{grid-template-columns:auto minmax(0,1fr)}
+  .p6-step .p6-media{grid-column:1 / -1;margin-top:18px;min-height:0}
+  .p6-step .p6-media img{aspect-ratio:16/9;height:auto}
+}
+
+
+/* ============================================================
+   HEADER OVER HERO + FULL-BLEED HERO            (Manan, 7 Aug)
+   "I want the hero banner to go all the way to the top and the
+    header placed on the menu [over the hero]."
+   The pill nav previously sat in an opaque cream bar that pushed
+   the hero down. Now the hero starts at y=0 and the nav floats on
+   top of it, frosting only once you leave the hero.
+   ============================================================ */
+.site-header{position:fixed;top:0;left:0;right:0;z-index:100;
+  background:transparent !important;border-bottom:0 !important;
+  height:auto;padding-top:clamp(10px,1.4vw,18px);
+  transition:background 320ms ease,backdrop-filter 320ms ease}
+.site-header .nav-bar{
+  background:rgba(247,231,201,.16);
+  border:1px solid rgba(247,231,201,.28);
+  backdrop-filter:blur(14px) saturate(1.1);
+  -webkit-backdrop-filter:blur(14px) saturate(1.1);
+  transition:background 320ms ease,border-color 320ms ease}
+
+/* over the water: cream type so it reads on the image */
+.hero-top .site-header .nav-links a,
+.hero-top .site-header .lang-switch a,
+.hero-top .site-header .lang-switch .sep{color:var(--cream-soft)}
+.hero-top .site-header .nav-links a:hover{color:#fff}
+.hero-top .site-header .nav-brand img{filter:brightness(0) invert(1);opacity:.96}
+
+/* past the hero: the familiar solid cream pill returns */
+.is-scrolled .site-header .nav-bar{
+  background:var(--cream-beige);border-color:var(--line);
+  box-shadow:0 6px 24px rgba(46,38,32,.10)}
+
+/* the hero itself now starts at the very top of the document */
+.hero{margin-top:0 !important;height:100svh}
+.hero-content{padding-top:var(--header-h)}
+
+@media(max-width:900px){
+  .site-header{padding-top:8px}
+}
+
+/* ---- Circular menu: genuinely wide, edge to edge ------------------------
+   "you've not increased the circles that I asked you to make completely wide" */
+.menu-section .container:has(.p4-circles),
+.p4-circles{max-width:none !important}
+.p4-circles{display:flex;gap:clamp(20px,2.6vw,40px);overflow-x:auto;
+  scroll-snap-type:x proximity;padding-inline:clamp(24px,5vw,80px);
+  -webkit-overflow-scrolling:touch;scrollbar-width:none}
+.p4-circles::-webkit-scrollbar{display:none}
+.p4-circles > *{flex:0 0 clamp(190px,17vw,260px);scroll-snap-align:center}
+.p4-circles img{width:100%;aspect-ratio:1;border-radius:50%;object-fit:cover;display:block}
+@media(max-width:900px){
+  .p4-circles > *{flex:0 0 clamp(150px,44vw,200px)}
+  .p4-circles{padding-inline:20px;gap:18px}
+}
+
+
+
+
+/* ============================================================
+   HEADER OVER EVERY HERO, NOT JUST HOME
+   "just like you've done on the home page, I want ALL the hero
+    banners to have the menu on top of them."
+   ============================================================ */
+.inner-hero{height:min(78svh,720px);min-height:520px;margin-top:0 !important;
+  display:flex;align-items:center}
+.inner-hero-content{position:relative;z-index:3;width:100%;
+  max-width:var(--maxw);margin-inline:auto;padding:var(--header-h) var(--gutter) 0}
+.inner-hero-scrim{background:linear-gradient(180deg,rgba(46,38,32,.48) 0%,rgba(46,38,32,.20) 45%,rgba(46,38,32,.30) 100%)}
+
+
+/* ---- Inner heroes: same treatment as home -------------------------------
+   nav floats on the image, hero dissolves into the section below instead of
+   cutting, and the eyebrow is legible on a light photograph. */
+.hero-top .site-header .nav-brand img{filter:brightness(0) invert(1);opacity:.96}
+.inner-hero{position:relative}
+.inner-hero::after{content:"";position:absolute;left:0;right:0;bottom:-1px;
+  height:22vh;z-index:2;pointer-events:none;
+  background:linear-gradient(180deg,rgba(247,231,201,0) 0%,rgba(247,231,201,.55) 58%,var(--cream-beige) 100%)}
+.inner-hero-content{z-index:3}
+/* eyebrow was golden-ochre on pale sand: invisible */
+.inner-hero-content .eyebrow{color:var(--cream-soft) !important;
+  text-shadow:0 1px 10px rgba(46,38,32,.5)}
+.inner-hero-content h1,.inner-hero-content .hero-intro{
+  text-shadow:0 2px 22px rgba(46,38,32,.34)}
+
+/* no hairline rules between steps either - Manan: "no lines visible" */
+.p6-step{border-top:0 !important}
+.p6-step:last-child{border-bottom:0 !important}
+/* Rows were separated by 52 px of margin on top of 32 px of padding each side,
+   so ~116 px of nothing between one step and the next. Compact, per ledger 12. */
+.p6-step + .p6-step{margin-top:clamp(14px,1.8vw,24px)}
+.p6-step{padding-block:clamp(12px,1.4vw,18px) !important}
+.cert-grid{border-top:0}
+.cert-row{border-bottom:0}
+.cert-row + .cert-row{margin-top:2px}
+
+
+
+/* ---- Nav must not flash pale on scroll ---------------------------------
+   The frosted state transitioned through a light value on its way to cream.
+   No transition on the background: it changes straight to its final colour. */
+.site-header .nav-bar{transition:none !important}
+.hero-top .site-header .nav-bar{
+  background:rgba(46,38,32,.22);
+  border-color:rgba(247,231,201,.24)}
+.is-scrolled .site-header .nav-bar{
+  background:var(--cream-beige);border-color:var(--line)}
+
+/* ---- Footer: a clean solid strip, no gradient, rounded shoulders -------- */
+.site-footer{background:var(--burnt-sienna) !important;background-image:none !important;
+  border-radius:clamp(20px,2.4vw,34px) clamp(20px,2.4vw,34px) 0 0;
+  margin-top:0;position:relative;z-index:2}
+
+
+/* ---- More of the rounded language, as used on the other builds ---------- */
+.p6-media,.about-img,.split .frame,.p4-circles img,.card,.accord,.ss-form,
+.p5-bleed .p5-media,.split-img{border-radius:clamp(14px,1.5vw,22px)}
+.p4-circles img{border-radius:50%}
+.btn,.btn--pill,.nav-cta-pill,.chip,.rm-btn{border-radius:999px}
+/* ROW 20, FOUND AT LAST (31 Aug). Manan: "I can still see this line on many of the
+   hero sections... between the hero section and the second section."
+   I looked for it twice before and wrote a no-op rule the first time, because I kept
+   hunting for a BORDER. There is none: the DOM scan for borders, shadows and thin
+   backgrounds at the hero boundary returned zero hits. The line is a CLIP EDGE.
+   .inner-hero had a bottom border-radius plus overflow:hidden, so it is a rounded
+   card sitting on cream, and its clip edge is visible wherever the video is darker
+   than the page. Rasterising the boundary and zooming showed it exactly: the middle
+   fades away cleanly via the ::after cream bleed, but the two corner arcs cut through
+   as thin dark curves. The bleed could never hide them, because the clip happens at
+   the box edge, outside the gradient.
+   Dropping the radius makes the hero a flat band that dissolves into the section, the
+   way the home hero already does (its radius has always been 0). overflow:hidden is
+   kept, it is what crops the video. */
+.inner-hero{border-radius:0;overflow:hidden}
+
+/* ---- Footer is a solid strip on cream, not the end of a gradient -------- */
+body{background:var(--cream-beige)}
+.site-footer{background:var(--burnt-sienna) !important;background-image:none !important;
+  border-radius:clamp(22px,2.6vw,38px) clamp(22px,2.6vw,38px) 0 0;
+  margin-top:clamp(40px,6vh,90px);
+  padding-top:clamp(48px,6vh,80px);
+  position:relative;z-index:3;overflow:hidden}
+/* nothing may paint behind the footer's shoulders */
+
+
+/* ---- Every section keeps its gutters. No copy at x=0 --------------------
+   On /pour-les-entreprises the "Un accompagnement" block was rendering hard
+   against the left edge and the heading ran off the right. Enforce the
+   container contract everywhere rather than per-section. */
+main > section > .container,
+main > section > .wrap{
+  width:100%;max-width:var(--maxw);margin-inline:auto;
+  padding-inline:var(--gutter);box-sizing:border-box}
+main > section > *:not(.container):not(.wrap):not(video):not(img):not(canvas){
+  max-width:100%;box-sizing:border-box}
+main > section{overflow-x:clip}
+/* the fade band is padding: nothing sits in it */
+
+
+
+
+
+/* ============================================================
+   FLAT SECTIONS                                 (Manan, 7 Aug)
+   "If you're just not able to do it, don't have a gradient at all
+    in these sections."
+
+   Taking that. Every gradient attempt introduced a new defect, the
+   worst being a section repainted cream while its text stayed
+   white. Flat, deliberate colour blocks cannot do that. Rhythm now
+   comes from alternating grounds and generous spacing, not fades.
+   ============================================================ */
+main > section{background-image:none !important}
+main > section.section{background-color:var(--cream-beige)}
+main > section.section--soft{background-color:var(--cream-soft)}
+main > section.section--sienna,
+main > section.band-dark{background-color:var(--burnt-sienna)}
+main > section.section--olive{background-color:var(--olive-green)}
+
+/* TEXT COLOUR IS TIED TO THE GROUND, never set independently.
+   This is what stops white-on-cream from ever happening again. */
+main > section.section,
+main > section.section--soft{color:var(--ink)}
+main > section.section h1,main > section.section h2,main > section.section h3,
+main > section.section--soft h1,main > section.section--soft h2,
+main > section.section--soft h3{color:var(--burnt-sienna)}
+main > section.section p,main > section.section--soft p,
+main > section.section li,main > section.section--soft li{color:var(--ink)}
+main > section.section .eyebrow,
+main > section.section--soft .eyebrow{color:var(--terracotta)}
+
+main > section.section--sienna,main > section.band-dark{color:var(--cream-soft)}
+main > section.section--sienna h1,main > section.section--sienna h2,
+main > section.section--sienna h3,main > section.band-dark h1,
+main > section.band-dark h2,main > section.band-dark h3{color:var(--cream-soft)}
+main > section.section--sienna p,main > section.band-dark p{color:rgba(247,231,201,.92)}
+main > section.section--sienna .eyebrow,
+main > section.band-dark .eyebrow{color:var(--golden-ochre)}
+
+/* comfortable, even breathing room instead of fade bands */
+main > section{padding-block:clamp(72px,9vh,130px)}
+.hero,.inner-hero{padding-block:0}
+
+/* ---- Circles: all six visible, no scrolling ----------------------------
+   Manan: "reduce the size of the circles... make them fit without scrolling.
+   I don't want to scroll there." So the rail stops being a scroller on
+   desktop and becomes a six-up row that divides the width exactly. */
+@media(min-width:901px){
+  .p4-circles{display:grid;grid-template-columns:repeat(6,1fr);
+    gap:clamp(14px,1.6vw,26px);overflow:visible;padding-inline:0;
+    max-width:var(--maxw);margin-inline:auto}
+  .p4-circles > *{flex:none;width:100%;min-width:0}
+  .p4-circles::after{display:none}
+  /* the arrows have no job when nothing scrolls */
+  .menu-arrows,.p4-arrows{display:none !important}
+}
+.p4-circle{display:block;text-align:center}
+.p4-ring{width:100%;aspect-ratio:1;border-radius:50%;overflow:hidden}
+.p4-ring img{width:100%;height:100%;object-fit:cover;display:block;border-radius:50%}
+.p4-label{margin-top:14px;font-family:var(--font-display);
+  font-size:clamp(14px,1.15vw,18px);color:var(--burnt-sienna);line-height:1.25}
+
+@media(max-width:900px){
+  .p4-circles{display:flex;gap:16px;overflow-x:auto;padding-inline:20px;
+    scroll-snap-type:x proximity;scrollbar-width:none}
+  .p4-circles::-webkit-scrollbar{display:none}
+  .p4-circles > *{flex:0 0 clamp(132px,38vw,170px);scroll-snap-align:center}
+}
+
+/* ============================================================
+   ROUND 5 - Marine's V2 content doc, 17 Aug 2026
+   Ledger: _work/LEDGER-MARINE-V2-2026-08-17.md
+   Everything below is additive and appended last, so it wins the
+   cascade without touching the patterns already signed off.
+   ============================================================ */
+
+/* --- Rows 5, 6: circles must read as clickable ---------------------------
+   "a subtle hover effect... just a very slight movement" + "the title
+   underline when you hover over it". 6px, 260ms, no scale on the photo
+   itself so the crop never jumps. Killed under reduced motion. */
+.p4-circle { transition: transform 260ms cubic-bezier(.22,.61,.36,1); }
+.p4-circle .p4-ring {
+  border: 1px solid var(--line);
+  transition: border-color 260ms ease, box-shadow 260ms ease;
+}
+.p4-circle .p4-label { position: relative; display: inline-block; padding-bottom: 3px; }
+.p4-circle .p4-label::after {
+  content: ""; position: absolute; left: 0; bottom: 0; height: 1px; width: 100%;
+  background: currentColor; transform: scaleX(0); transform-origin: left center;
+  transition: transform 260ms cubic-bezier(.22,.61,.36,1);
+}
+@media (hover: hover) {
+  .p4-circle:hover, .p4-circle:focus-visible { transform: translateY(-6px); }
+  .p4-circle:hover .p4-ring, .p4-circle:focus-visible .p4-ring {
+    border-color: var(--terracotta);
+  }
+  .p4-circle:hover .p4-label::after,
+  .p4-circle:focus-visible .p4-label::after { transform: scaleX(1); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .p4-circle, .p4-circle .p4-ring, .p4-circle .p4-label::after { transition: none; }
+  .p4-circle:hover { transform: none; }
+}
+
+/* --- V3 rows 3-9: pictogram circles -------------------------------------------
+   "I am not comfortable with the pictures, they are too AI style." The photos are
+   replaced by a drawn set on a cream-beige ground. Same mark set doubles as her
+   Instagram highlight covers, which is why the ground is flat and the ink is
+   heavy enough to survive being shrunk to a 60px story bubble. */
+.p4-ring--picto {
+  background: var(--cream-beige);
+  border: 1px solid rgba(143, 42, 13, .16);
+  display: flex; align-items: center; justify-content: center;
+}
+.p4-ring--picto img {
+  width: 58%; height: 58%;
+  object-fit: contain; object-position: center;
+  border-radius: 0;
+}
+@media (hover: hover) {
+  .p4-circle:hover .p4-ring--picto,
+  .p4-circle:focus-visible .p4-ring--picto { background: #F3DDB8; }
+}
+/* 4 circles instead of 6. Centring a flex track that overflows its own scroll
+   container pushes the first item to a NEGATIVE offset that no scroll position
+   can reach, so on a 390px screen "À propos" became unreachable. Start-aligned
+   always, and centred only at widths where the whole set actually fits. */
+.p4-circles--picto { justify-content: flex-start; }
+@media (min-width: 900px) {
+  .p4-circles--picto { justify-content: center; }
+}
+
+/* --- V3 row 10: REVERSES V2 row 17 -------------------------------------------
+   V2 asked for this line to stand out, so it was set in the display face at 1.6x
+   body. V3: "Keep the same size and font for the 2 parts (I know I asked the
+   contrary before sorry). Just reduce the size and match the font of this
+   paragraph with the previous one. Keep the dash in the middle."
+   So: body face, body size, same colour as the paragraph above it. The ochre
+   rule ("the dash") stays, and is now the only thing marking the turn. */
+.standout {
+  font-family: var(--font-body);
+  font-size: var(--body);
+  line-height: 1.65;
+  color: inherit;
+  max-width: 46ch;
+  margin-top: 30px;
+  padding-top: 26px;
+  position: relative;
+}
+.standout::before {
+  content: ""; position: absolute; top: 0; left: 0;
+  width: 54px; height: 2px; background: var(--golden-ochre);
+}
+.menu-body .standout { margin-inline: auto; }
+.menu-body .standout::before { left: 50%; transform: translateX(-50%); }
+
+/* --- Row 44: the three "needs to be more visible" lines in the method --- */
+.step-pull {
+  font-family: var(--font-display);
+  font-size: clamp(19px, 1.7vw, 23px);
+  line-height: 1.35;
+  color: var(--terracotta);
+  max-width: 46ch;
+  margin: 20px 0 4px;
+  padding-left: 18px;
+  border-left: 2px solid var(--golden-ochre);
+}
+
+/* --- Rows 3, 46, 47, 55: the accordion -----------------------------------
+   ONE pattern for every persuasion section (Ça vous parle, Ce voyage est
+   pour vous si, Pourquoi rien ne bouge). The promise line is always on
+   screen; the proof sits behind it. That is how the page stays short while
+   the copy that overcomes hesitation stays on the site. */
+.acc { max-width: 78ch; margin-inline: auto; margin-top: clamp(28px, 3.4vw, 44px); }
+.acc-item { border-top: 1px solid var(--line); }
+.acc-item:last-child { border-bottom: 1px solid var(--line); }
+.acc-q {
+  width: 100%;
+  display: flex; align-items: baseline; gap: 18px;
+  text-align: left;
+  padding: 22px 0;
+  font-family: var(--font-display);
+  font-size: clamp(19px, 1.9vw, 25px);
+  line-height: 1.3;
+  color: var(--burnt-sienna);
+}
+.acc-q .acc-i {
+  flex: 0 0 auto;
+  font-family: var(--font-body);
+  font-size: 12px; letter-spacing: .2em; font-weight: 600;
+  color: var(--terracotta);
+  transform: translateY(-2px);
+}
+.acc-q .acc-t { flex: 1 1 auto; }
+.acc-q .acc-sign {
+  flex: 0 0 auto; width: 22px; height: 22px; position: relative;
+  align-self: center;
+}
+.acc-q .acc-sign::before, .acc-q .acc-sign::after {
+  content: ""; position: absolute; left: 50%; top: 50%;
+  background: var(--terracotta);
+  transform: translate(-50%, -50%);
+  transition: opacity 200ms ease, transform 260ms cubic-bezier(.22,.61,.36,1);
+}
+.acc-q .acc-sign::before { width: 15px; height: 1.5px; }
+.acc-q .acc-sign::after  { width: 1.5px; height: 15px; }
+.acc-item.is-open .acc-q .acc-sign::after { opacity: 0; transform: translate(-50%,-50%) rotate(90deg); }
+.acc-a {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 420ms cubic-bezier(.22,.61,.36,1);
+}
+.acc-item.is-open .acc-a { max-height: 1400px; }
+.acc-a-inner { padding: 0 0 26px; padding-right: 40px; }
+.acc-a-inner p { margin-bottom: 14px; }
+.acc-a-inner p:last-child { margin-bottom: 0; }
+.acc-more {
+  font-family: var(--font-body);
+  font-size: 13px; letter-spacing: .12em; text-transform: uppercase;
+  font-weight: 600; color: var(--terracotta);
+}
+@media (prefers-reduced-motion: reduce) { .acc-a { transition: none; } }
+/* No JS: every answer is open, nothing is hidden from a reader or a crawler. */
+html:not(.js) .acc-a { max-height: none; }
+html:not(.js) .acc-q .acc-sign { display: none; }
+@media (max-width: 600px) {
+  .acc-q { gap: 12px; padding: 18px 0; }
+  .acc-a-inner { padding-right: 0; }
+}
+
+/* --- Rows 31, 32: À propos chapter blocks --------------------------------
+   One template, used four times. "The chapters need to be more visible ->
+   increase the size of the font - reduce the size of the title", so the
+   chapter marker is the loud element and the h2 steps down a level. */
+.chap { padding-block: clamp(56px, 6.5vw, 92px); }
+.chap + .chap { padding-top: 0; }
+.chap-inner {
+  display: grid;
+  grid-template-columns: 1fr 0.82fr;
+  gap: clamp(32px, 4.5vw, 68px);
+  align-items: start;
+}
+.chap--flip .chap-inner { grid-template-columns: 0.82fr 1fr; }
+.chap--flip .chap-media { order: -1; }
+@media (max-width: 860px) {
+  .chap-inner, .chap--flip .chap-inner { grid-template-columns: 1fr; gap: 28px; }
+  .chap--flip .chap-media { order: 0; }
+}
+.chap-mark {
+  font-family: var(--font-display);
+  font-size: clamp(38px, 5.2vw, 68px);
+  line-height: 1;
+  color: var(--terracotta);
+  display: flex; align-items: baseline; gap: 14px;
+  margin-bottom: 14px;
+}
+.chap-mark .chap-word {
+  font-family: var(--font-body);
+  font-size: 11px; letter-spacing: .3em; text-transform: uppercase;
+  font-weight: 600; color: var(--warm-brown);
+}
+.chap-title {
+  font-size: clamp(24px, 2.5vw, 33px);
+  line-height: 1.18;
+  margin-bottom: 20px;
+  max-width: 24ch;
+}
+.chap-body p { margin-bottom: 15px; }
+.chap-body p:last-child { margin-bottom: 0; }
+.chap-media { border-radius: var(--radius); overflow: hidden; align-self: stretch; }
+.chap-media img { width: 100%; height: 100%; min-height: 100%; object-fit: cover; object-position: center 28%; }
+@media (max-width: 860px) { .chap-media img { aspect-ratio: 4/5; min-height: 0; } }
+
+/* --- Row 36: highlight colour block --- */
+.hl-block {
+  background: var(--cream-beige);
+  border-left: 3px solid var(--burnt-sienna);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: clamp(20px, 2.2vw, 28px) clamp(20px, 2.4vw, 30px);
+  margin: 22px 0 6px;
+}
+.section--soft .hl-block { background: #F2E3C8; }
+.hl-block p { margin-bottom: 10px; }
+.hl-block p:last-child { margin-bottom: 0; }
+
+/* --- Row 39: pulled quote, "in brackets" --- */
+.q-pull {
+  font-family: var(--font-display);
+  font-size: clamp(21px, 2.2vw, 28px);
+  line-height: 1.34;
+  color: var(--burnt-sienna);
+  max-width: 40ch;
+  margin: 26px 0;
+  padding: 8px 0 8px 26px;
+  border-left: 2px solid var(--golden-ochre);
+}
+.q-pull cite { display: block; margin-top: 12px; font-style: normal;
+  font-family: var(--font-body); font-size: 12px; letter-spacing: .2em;
+  text-transform: uppercase; color: var(--warm-brown); }
+
+/* --- Rows 52, 53: three cards of equal length, emphasis on the Signature -- */
+.pricing { align-items: stretch; }
+.price-card { height: 100%; }
+@media (min-width: 861px) {
+  /* the lift was on card 2 and read as "pick this one" (row 53) */
+  .price-card--featured { transform: none; }
+  .pricing .price-card:nth-child(3) { border: 1.5px solid var(--burnt-sienna); background: var(--cream-beige); }
+}
+.price-card .price-body { flex: 1 1 auto; }
+.price-flag {
+  display: inline-block;
+  font-family: var(--font-body); font-size: 10px; letter-spacing: .22em;
+  text-transform: uppercase; font-weight: 700;
+  color: var(--cream-soft); background: var(--burnt-sienna);
+  padding: 5px 11px; border-radius: 999px; margin-bottom: 12px;
+}
+.chap-list { margin: 6px 0 16px; }
+.chap-list li {
+  font-size: 15px; line-height: 1.5; margin-bottom: 8px;
+  padding-left: 18px; position: relative;
+}
+.chap-list li strong { color: var(--burnt-sienna); font-weight: 600; }
+.chap-list li::before {
+  content: ""; position: absolute; left: 0; top: 11px;
+  width: 8px; height: 1.5px; background: var(--terracotta);
+}
+
+/* --- Row 55: L'investissement, a short reframe band after the prices --- */
+.invest-inner { max-width: 60ch; margin-inline: auto; text-align: center; }
+.invest-inner p { margin-inline: auto; }
+.invest-lead {
+  font-family: var(--font-display);
+  font-size: clamp(23px, 2.6vw, 34px);
+  line-height: 1.25; margin-bottom: 18px;
+}
+
+/* --- Row 30: À propos hero is now a photograph, not a video --- */
+.inner-hero-photo { position: absolute; inset: 0; width: 100%; height: 100%;
+  object-fit: cover; object-position: center 32%; }
+
+/* --- Rows 24-28: footer -------------------------------------------------- */
+.footer-brand .footer-logo img { height: 34px; width: auto; }
+@media (max-width: 600px) { .footer-brand .footer-logo img { height: 28px; } }
+/* row 28: the links were pure cream and shouted against the paragraph on
+   the left. Matched to the exact value of .footer-brand p. */
+.footer-col a { color: rgba(247,231,201,.85); }
+.footer-col a:hover { color: var(--golden-ochre); }
+/* row 27: the sign-up moves out of the brand column and sits under the two
+   link columns, spanning them. */
+@media (min-width: 761px) {
+  .footer-grid { grid-template-columns: 1.4fr 1fr 1fr; row-gap: clamp(32px, 4vw, 52px); }
+  .footer-news { grid-column: 2 / 4; grid-row: 2; }
+  .footer-brand { grid-row: 1 / 3; }
+}
+.footer-news h4 {
+  font-family: var(--font-body); font-size: 11px; letter-spacing: .28em;
+  text-transform: uppercase; color: var(--golden-ochre);
+  margin-bottom: 10px; font-weight: 600;
+}
+.footer-news .news-note {
+  font-size: 14px; line-height: 1.6; color: rgba(247,231,201,.85);
+  max-width: 46ch; margin-bottom: 14px;
+}
+.footer-news .newsletter { margin-top: 0; }
+.footer-news .newsletter form { max-width: 460px; }
+@media (max-width: 600px) { .newsletter form { flex-direction: column; } }
+
+/* A centred .standout kept its rule pinned to the left edge of the measure, which
+   read as a stray gold dash. Centre the rule with the text. */
+.standout.is-centred, .standout[style*="text-align:center"] { margin-inline: auto; }
+.standout.is-centred::before,
+.standout[style*="text-align:center"]::before { left: 50%; transform: translateX(-50%); }
+
+/* ===========================================================================
+   V3 ROUND (Marine, content doc V3, 20 Aug 2026)
+   =========================================================================== */
+
+/* --- V3 row 16: the employer list on À propos chapter 1 --------------------
+   "Keep the same text formatting as the rest of the paragraph (font and size),
+   but simply add this bar on the left and use a tab to slightly indent."
+   So: no face change, no size change, no colour change. A rule and an indent. */
+.work-list {
+  border-left: 2px solid var(--golden-ochre);
+  padding-left: clamp(16px, 2vw, 24px);
+  margin: 22px 0;
+}
+.work-list p { margin: 0 0 8px; }
+.work-list p:last-child { margin-bottom: 0; }
+
+/* --- V3 row 21: the Read more control only exists when there is more to read.
+   NOTE the polarity. An earlier version keyed this on :not(.rm-needed), which
+   un-clamped the block BEFORE the script measured it, so the measurement always
+   came back "fits" and the clamp was silently dead on every page. The class now
+   means "measured, and it fits", and is only ever added by the script AFTER a
+   measurement taken with the clamp active. */
+.readmore.rm-fits:not(.is-open) .rm-collapsed { max-height: none; }
+/* The soft fade is a mask on .rm-collapsed (see the 7 Aug note above), not the
+   .rm-fade div. So un-clamping alone is not enough: without this the last line
+   of a block that fits was still faded to transparent, which tells the reader
+   there is more to read while offering no control to reveal it. */
+.readmore.rm-fits:not(.is-open) .rm-collapsed {
+  -webkit-mask-image: none;
+          mask-image: none;
+}
+.rm-btn[hidden] { display: none; }
+
+/* --- V3 row 28: "the certification lines don't seem to be aligned/centered
+   with the title". The 2-column grid was full-bleed to the container while the
+   section head above it is centred and measure-limited, so the two never lined
+   up. Cap the grid to the same measure and centre it. */
+.cert-grid {
+  max-width: 940px;
+  margin-inline: auto;
+}
+.cert-row .cert-picto { width: 40px; height: 40px; flex: 0 0 40px; }
+.cert-row .cert-picto img { width: 100%; height: 100%; opacity: 1; }
+
+/* --- V3 rows 13, 64, 72: drawn hero illustrations instead of photo/video.
+   These are SVG, so they must NOT be cropped like a photograph. */
+.inner-hero--illus { background: var(--cream-soft); }
+.inner-hero--illus .inner-hero-photo {
+  object-fit: cover;
+  object-position: center center;
+}
+.inner-hero--illus .inner-hero-scrim {
+  background: linear-gradient(180deg, rgba(46,38,32,.06) 0%, rgba(46,38,32,.22) 100%);
+}
+
+/* --- V3 row 37: "Can we make all the titles responsive on the website, just
+   like the rest of the text?" --h1/--h2 were already clamped; these were the
+   headings still pinned to a fixed pixel size, so they never scaled down on a
+   small screen and never scaled up on a large one. */
+:root { --h3: clamp(21px, 2.2vw, 28px); }
+.sign-card h3,
+.p6-body h3,
+.acc-t,
+.chap-title,
+.offer-card h3 { font-size: clamp(19px, 2vw, 26px); line-height: 1.28; }
+.section-head .section-intro { font-size: clamp(15px, 1.3vw, 18px); }
+.p6-body p { font-size: clamp(15px, 1.2vw, 17px); }
+.flow-node p, .sign-card p { font-size: clamp(14px, 1.15vw, 16px); }
+
+/* --- V3 row 39: the closing line takes the warm brown of the line she pointed
+   at, rather than the terracotta the .standout default now uses. */
+.standout.accent-brown { color: var(--warm-brown); }
+
+/* --- V3 row 40: "I'd like a subtle visual distinction between the two text
+   blocks. Right now there's not enough to signal that we're moving into the
+   La méthode section." A hairline and a ground shift, nothing loud. */
+.p6-stack--centred { position: relative; }
+.p6-stack--centred::before {
+  content: ""; display: block; width: 64px; height: 2px;
+  background: var(--golden-ochre);
+  margin: 0 auto clamp(28px, 4vw, 44px);
+}
+
+/* --- V3 row 42: "Remove the 3 images. Center the 3 method blocks." Without the
+   media column the grid must collapse to one centred measure, or the copy keeps
+   the old half-width and sits stranded on the left. */
+.p6-stack--centred .p6-step {
+  grid-template-columns: 1fr;
+  max-width: 720px;
+  margin-inline: auto;
+  text-align: center;
+}
+.p6-stack--centred .p6-step .p6-num { margin-inline: auto; }
+.p6-stack--centred .p6-body .chips { justify-content: center; }
+.p6-stack--centred .p6-body .step-pull { margin-inline: auto; }
+
+/* --- V3 row 43: single human photo in place of the two big offset images. */
+.method-human {
+  max-width: 560px; margin: 0 auto clamp(28px, 4vw, 44px);
+  border-radius: var(--radius-lg); overflow: hidden;
+}
+.method-human img { width: 100%; height: auto; display: block; }
+
+/* --- V3 row 35: an h1 that is a full sentence, not a 3-word title, needs a
+   smaller ceiling or it takes the whole viewport on desktop. */
+.h1-sentence { font-size: clamp(30px, 4.2vw, 56px); line-height: 1.16; max-width: 22ch; }
+
+/* --- V3 row 66: square picture strip on /experiences-retraites ------------- */
+.sq-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(10px, 1.4vw, 18px);
+  margin-bottom: clamp(28px, 4vw, 44px);
+}
+.sq-strip figure { margin: 0; border-radius: var(--radius); overflow: hidden; }
+.sq-strip img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; }
+@media (max-width: 640px) { .sq-strip { grid-template-columns: repeat(2, 1fr); } }
+
+.retreat-copy { max-width: 62ch; margin-inline: auto; text-align: center; }
+.retreat-copy p + p { margin-top: 14px; }
+
+/* --- V3 rows 67, 68: the next-experience block + email capture ------------- */
+.next-exp {
+  max-width: 640px; margin-inline: auto; text-align: center;
+  background: var(--cream-beige);
+  border: 1px solid rgba(143, 42, 13, .16);
+  border-radius: var(--radius-lg);
+  padding: clamp(28px, 4vw, 48px);
+}
+.next-exp-meta {
+  list-style: none; padding: 0;
+  margin: 18px 0 20px;
+  display: flex; flex-wrap: wrap; gap: 10px 26px; justify-content: center;
+  font-size: 15px; color: var(--warm-brown);
+}
+.next-exp-ask { margin-top: 18px; }
+.next-exp-form { margin-top: 22px; text-align: left; }
+.next-exp-form .ss-submit { width: 100%; }
+
+/* --- V3 row 55: the free-call note under each pricing button --------------- */
+.free-call {
+  margin-top: 10px;
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--warm-brown);
+  text-align: center;
+}
+
+/* --- V3 row 54: "Center the text in the button" ---------------------------- */
+.price-card .btn { display: block; text-align: center; }
+
+/* --- Currency legibility (found in V3 QA, pre-existing, not introduced by V3) --
+   Blinka Serif's euro has very short crossbars, so at the real rendered size
+   "180 €" reads as "180 C". The glyph is present and correct, it is simply
+   ambiguous at 20px. A unicode-range @font-face override was tried first and did
+   not take, so the currency mark is wrapped explicitly and set in the body face,
+   which has an unambiguous euro. Everything else on the price line is unchanged. */
+.cur {
+  font-family: var(--font-body);
+  font-size: .86em;
+  font-weight: 500;
+  letter-spacing: .01em;
+}
+.price-meta { font-feature-settings: "tnum" 1; }
+
+/* Place and date marks on /experiences-retraites. Marine's copy used colour
+   emoji; the wording is hers and unchanged, but colour emoji sit badly in a
+   serif editorial layout, so these are drawn in the brand ink instead. */
+.nx-ico {
+  width: 15px; height: 15px;
+  vertical-align: -2px;
+  margin-right: 4px;
+  fill: none;
+  stroke: var(--terracotta);
+  stroke-width: 1.3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.next-exp-meta li { display: inline-flex; align-items: center; }
+
+/* Contact split: the booking column is short until Marine's Google appointment
+   calendar is embedded (it is still a placeholder, see NOTES). Left aligned to
+   the top it read as a large accidental void beside a tall form, so the two
+   columns are centred against each other. When the embed lands this column
+   grows and the rule stops mattering. */
+[aria-label="Réserver ou écrire"] .split { align-items: center; }
+@media (max-width: 860px) {
+  [aria-label="Réserver ou écrire"] .split { align-items: stretch; }
+}
+
+/* Home "Je suis Marine" split ------------------------------------------------
+   V3 row 11: Marine shortened this copy specifically because it was "way too
+   long", so clamping it to a third of itself defeats the point. But per the
+   split-balance rule the text column must not out-run the photograph beside it.
+   Tuned so the column lands just under the image height on desktop: most of her
+   copy is visible, the control still exists for the tail. Mobile keeps the
+   tighter clamp because the photo stacks above rather than sitting alongside. */
+.about-split .rm-collapsed { --rm-h: 18em; }
+@media (max-width: 860px) {
+  .about-split .rm-collapsed { --rm-h: 11em; }
+}
+
+/* --- Hero legibility over the new photography ------------------------------
+   The generated retreat and À propos heroes are bright and busy exactly where
+   the h1 and its sub-line sit. The existing scrim is a vertical gradient only,
+   which does nothing for a left-aligned block over a bright mid-frame. This
+   adds a horizontal pass anchored to the text side so the copy always has a
+   dark ground under it, without dimming the whole photograph. */
+.inner-hero .inner-hero-scrim::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg,
+    rgba(46,38,32,.58) 0%,
+    rgba(46,38,32,.34) 38%,
+    rgba(46,38,32,0)   68%);
+}
+@media (max-width: 700px) {
+  .inner-hero .inner-hero-scrim::after {
+    background: linear-gradient(180deg,
+      rgba(46,38,32,.30) 0%,
+      rgba(46,38,32,.52) 100%);
+  }
+}
+/* The sub-line is the smallest text on the image, so it carries a little of its
+   own weight rather than relying on the scrim alone. */
+.inner-hero .hero-intro {
+  text-shadow: 0 1px 14px rgba(46,38,32,.55);
+  max-width: 34ch;
+}
+.inner-hero h1 { text-shadow: 0 2px 22px rgba(46,38,32,.42); }
+
+/* --- The circle rail must not pretend to scroll when it does not ------------
+   Cause of the gap on the right: .p4-circles carries an ::after spacer sized to
+   --gutter (added so the last circle never jams the viewport edge mid-scroll)
+   plus a left/right padding-inline. With six circles that is invisible. With
+   four on a wide screen the row no longer overflows, so centring it centres the
+   circles PLUS that invisible trailing spacer, which pushes everything left and
+   leaves the dead space. At widths where the set fits, drop the scroller
+   affordances entirely and centre honestly. */
+@media (min-width: 900px) {
+  .p4-circles--fits {
+    /* THE ACTUAL CAUSE of the dead space on the right: a desktop rule turns the
+       rail into `grid-template-columns: repeat(6, 1fr)`, sized for the original
+       six circles. With four, the two empty tracks still occupy their share, so
+       the row sits hard left with a two-circle hole beside it. justify-content
+       cannot fix that, because the tracks themselves are the width. Going back
+       to flex lets four items size to content and centre honestly. */
+    display: flex;
+    justify-content: center;
+    padding-inline: 0;
+    scroll-snap-type: none;
+    overflow-x: visible;
+    max-width: var(--maxw);
+    margin-inline: auto;
+  }
+  .p4-circles--fits > * { flex: 0 0 clamp(190px, 17vw, 240px); width: auto; }
+  .p4-circles--fits::after { content: none; }
+  .menu-rail-wrap:has(.p4-circles--fits) .menu-arrows { display: none; }
+}
+/* Pictogram circles ---------------------------------------------------------
+   The art is a square tile on a flat cream ground. `contain` showed the whole
+   square inside the round ring, so every circle read as a square tile floating
+   in a circle. `cover` lets the tile fill the disc instead; the mark carries a
+   20% margin of its own, so a circular crop only ever removes empty corners.
+   The tile ground is the exact --cream-beige value, so there is no seam. */
+.p4-circles--fits img {
+  object-fit: cover;
+  object-position: center;
+  background: var(--cream-beige);
+}
+.p4-circles--fits .p4-ring { background: var(--cream-beige); }
+
+/* --- Back-to-school offer on the Signature card (Marine, WhatsApp 21 Aug) ----
+   The struck value must read as superseded, never as the price. So it is muted
+   and lighter, the live value keeps full ink, and the label sits above the line
+   rather than competing with it. */
+.price-promo {
+  display: inline-block; margin-bottom: 10px; padding: 5px 12px;
+  border-radius: 999px; background: var(--golden-ochre); color: #3a2a12;
+  font-family: var(--font-body); font-size: 11px; font-weight: 600;
+  letter-spacing: .1em; text-transform: uppercase;
+}
+.price-was { color: var(--warm-brown); opacity: .62; margin-right: .35em;
+             text-decoration-thickness: 1.5px; }
+
+/* --- À propos chapters: consistent image height ----------------------------
+   Marine shortened the chapter copy in V3, but the chapter photographs kept
+   their natural aspect ratios (603, 717, 584, 659 px tall at 1440). Chapter 2
+   ended up 717px of image beside 433px of text, leaving a ~284px void under the
+   copy. One aspect ratio for all four gives the page a rhythm and removes the
+   hole. Centring the row means whichever side is shorter sits balanced rather
+   than pinned to the top. */
+.chap-inner { align-items: center; }
+.chap-media img {
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  object-position: center;
+  max-height: 540px;
+  width: 100%;
+}
+@media (max-width: 860px) {
+  .chap-inner { align-items: stretch; }
+  .chap-media img { aspect-ratio: 4 / 3; max-height: 420px; }
+}
+
+/* --- Inner heroes were too tall for how little they hold -------------------
+   min(78svh, 720px) with ~140px of content is 19% fill, which is the empty
+   screen Manan flagged on /les-accompagnements. Tightened so the hero still
+   reads as a full-bleed image but hands over to the content much sooner. */
+.inner-hero { height: min(62svh, 560px); min-height: 400px; }
+@media (max-width: 700px) {
+  .inner-hero { height: min(52svh, 420px); min-height: 320px; }
+}
+
+/* ===========================================================================
+   21 Aug, Manan: "the image and the section have no spacing in the middle"
+   and "you can still see a clear line, it has to flow seamlessly".
+   Both were real. Measured causes and fixes below.
+   =========================================================================== */
+
+/* --- 1. CHAPTER SPACING ----------------------------------------------------
+   `.chap + .chap { padding-top: 0 }` zeroed the top padding on chapters 2, 3
+   and 4. That was harmless while each chapter began with text (the chapter
+   marker carried its own margin), but the media column starts at the very top
+   of the grid, so the photograph sat FLUSH against the section's edge. Measured
+   at 1440: chapter 1 had 48px above the image, chapters 2 to 4 had 0px.
+   Every chapter is its own colour band, so every chapter needs its own top and
+   bottom padding, and they must match. */
+.chap,
+.chap + .chap { padding-block: clamp(56px, 6.5vw, 92px); }
+@media (max-width: 860px) {
+  .chap, .chap + .chap { padding-block: clamp(40px, 9vw, 64px); }
+}
+
+/* --- 2. THE HARD LINE UNDER THE HERO ---------------------------------------
+   The hero's bottom fade was hardcoded to end on --cream-beige, but the section
+   underneath is not always cream-beige. On /les-accompagnements it is
+   --cream-soft, so the gradient resolved to rgb(247,231,201) and then the page
+   jumped to rgb(251,247,240) in a single pixel row. Measured: a 41-unit step at
+   the exact hero boundary, which is the line he can see.
+   The fade colour is now derived from whatever actually follows the hero, so
+   the two can never disagree again. Kept as raw RGB components rather than
+   color-mix so the alpha stops stay exact on every browser. */
+.inner-hero { --bleed-rgb: 247, 231, 201; }           /* --cream-beige */
+.inner-hero:has(+ .section--soft) { --bleed-rgb: 251, 247, 240; }  /* --cream-soft */
+.inner-hero:has(+ .section--sienna),
+.inner-hero:has(+ .band-dark) { --bleed-rgb: 143, 42, 13; }        /* --burnt-sienna */
+
+.inner-hero::after {
+  background: linear-gradient(180deg,
+    rgba(var(--bleed-rgb), 0)   0%,
+    rgba(var(--bleed-rgb), .55) 58%,
+    rgba(var(--bleed-rgb), 1)   100%);
+}
+
+/* The rounded bottom corners let the BODY colour show through in the two
+   corner notches. On a page where the next section is a different cream that
+   reads as two pale nicks against the join, so the corners are squared off
+   whenever the hero and the section below it are different colours. */
+.inner-hero:has(+ .section--soft) { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+
+/* Same derivation for the home hero, so it cannot drift either. */
+.hero { --bleed-rgb: 247, 231, 201; }
+.hero:has(+ .section--soft) { --bleed-rgb: 251, 247, 240; }
+.hero-bleed {
+  background: linear-gradient(180deg,
+    rgba(var(--bleed-rgb), 0)   0%,
+    rgba(var(--bleed-rgb), .55) 58%,
+    rgba(var(--bleed-rgb), 1)   100%);
+}
+
+/* ============================================================================
+   V4, 24 Aug 2026 - Marine's fourth round
+   ============================================================================ */
+
+/* --- Row 4: "Ce voyage est pour vous si..." gets a photo on the right ---------
+   Her own proposal: "if we put the picture on the right, we have space on the
+   left for the writing content". The accordion is the primary content so it
+   takes the larger column. The photo is sticky on desktop because the accordion
+   grows tall when items open, and a short photo stranded at the top of a long
+   column looks like a mistake rather than a pairing. */
+.voyage-split{
+  display:grid;
+  grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);
+  gap:clamp(28px,4vw,56px);
+  align-items:start;
+  max-width:var(--maxw);
+  margin-inline:auto;
+}
+.voyage-photo{margin:0;position:sticky;top:calc(var(--nav-h,86px) + 24px)}
+.voyage-photo img{
+  width:100%;height:auto;display:block;
+  border-radius:14px;                 /* rule 22: soft corners, never a rock border */
+  background:var(--cream-beige);
+}
+@media (max-width:900px){
+  .voyage-split{grid-template-columns:1fr;gap:26px}
+  /* Photo first on mobile: it is the human beat that earns the reading of the
+     three items below it, and sticky positioning is meaningless in one column. */
+  .voyage-photo{position:static;order:-1;max-width:420px;margin-inline:auto}
+}
+
+/* --- Row 22: the terracotta band on La methode -------------------------------
+   Full-bleed out of the container so it reads as a chapter break rather than a
+   boxed card, which is what "signal that we're moving into a new section" needs. */
+.method-band{
+  position:relative;
+  background:var(--burnt-sienna);
+  color:var(--cream-soft);
+  border-radius:14px;
+  padding:clamp(30px,4.4vw,52px) clamp(22px,4vw,56px);
+  margin-bottom:clamp(34px,4.6vw,60px);
+}
+/* Doubled class on purpose. The site already carries
+   `main > section.section--soft h2 { color: var(--burnt-sienna) }` at specificity
+   0,1,3, which beats a plain `.method-band h2` at 0,1,1 and painted the heading
+   burnt sienna ON a burnt sienna band: the title vanished completely, leaving a
+   121px hole between the eyebrow and the intro. Caught by screenshotting the
+   deployed page, not by reading the CSS, because the markup was perfectly correct.
+   `.method-band.method-band` is 0,2,1, which outranks it on class count without
+   resorting to !important or restructuring a rule other sections depend on. */
+.method-band.method-band h2{color:var(--cream-soft)}
+.method-band.method-band .eyebrow{color:var(--golden-ochre);opacity:1}
+.method-band.method-band .section-intro,
+.method-band.method-band p{color:rgba(247,231,201,.92)}
+
+/* --- Row 18: separator before AND after the pull quote -----------------------
+   .standout already draws a rule above via ::before. Marine asked for the same
+   dash underneath, so ::after mirrors it. Kept on one shared rule so the two can
+   never drift apart in width or colour. */
+.standout.rule-both{padding-bottom:26px}
+.standout.rule-both::after{
+  content:"";position:absolute;bottom:0;left:0;
+  width:54px;height:2px;background:var(--golden-ochre);
+}
+.standout.rule-both.is-centred::after,
+.standout.rule-both[style*="text-align:center"]::after{left:50%;transform:translateX(-50%)}
+
+/* --- Row 23: burger on the left on mobile ------------------------------------
+   Marine: "Can we have the 3 bars menu on the left? I find it way more intuitive."
+   The button is now a real first child of .nav-bar, so this is only about hiding
+   it on desktop. Nothing is reordered visually away from the DOM order, which
+   keeps keyboard tab order honest. */
+.menu-toggle{flex:0 0 auto}
+@media (min-width:1100px){ .menu-toggle{display:none !important} }
+
+/* --- Row 26, the part that actually solves "we are quite lost" ----------------
+   Diagnosis first: the header IS position:fixed and IS on screen at the foot of
+   every page, measured at 390x844 with scrollY 4590 and the bar sitting at top:8.
+   So "the menu isn't sticky" is not literally what is wrong. What is wrong is
+   that BOTH the link row and the Réserver pill were display:none below 1100, so
+   the sticky bar offered a visitor nothing but a hamburger. Bringing the pill
+   back gives a permanent, visible next step at every scroll position, which is
+   the thing she was actually missing. The link row stays in the drawer. */
+@media (max-width:1099px){
+  .nav-cta-pill{display:inline-flex}
+}
+@media (max-width:680px){
+  .site-header .nav-bar{padding:8px 8px 8px 8px;gap:8px}
+  .nav-brand img{height:38px}
+  /* min-height 44 is not decoration: measured at 390x844 the pill came out 39px
+     tall, under the 44px minimum comfortable tap target. It only started
+     mattering the moment we un-hid it on mobile, which is exactly the kind of
+     thing that slips through a desktop-only review. */
+  .nav-cta-pill{padding:9px 15px;font-size:11px;letter-spacing:.08em;min-height:44px}
+  .menu-toggle{width:44px;height:44px}
+  .nav-right{gap:8px}
+}
+/* REVERSED 31 Aug. On 24 Aug I hid FR|EN below 400px, reasoning that the pill and
+   the switch were fighting for pixels and booking mattered more. Then Marine asked
+   for exactly this on the call, 06:16: "I would love to keep English and French in
+   the menu." A bilingual site whose language switch vanishes on the most common
+   phone width is not a trade-off, it is a bug. It stays at every width; the pill
+   and the logo give up the space instead. */
+@media (max-width:400px){
+  .lang-switch{display:flex}
+}
+
+/* --- Rows 24 + 25: mobile circle labels --------------------------------------
+   24: "the titles should be in the same line" - "Accompagnements" is 15 characters
+   and was wrapping then clipping on a 390px rail. Fixed size-to-fit rather than
+   by truncating, because a half-word is worse than small type.
+   25: "How can we show that we can click on it? Maybe underline the titles?"
+   Underlined at every width so the affordance is consistent, with the offset set
+   so the rule never collides with the accents on "À" or "é". */
+.p4-label{
+  text-decoration:underline;
+  text-decoration-thickness:1px;
+  text-underline-offset:4px;
+  text-decoration-color:rgba(143,42,13,.42);
+  transition:text-decoration-color 200ms ease;
+}
+.p4-circle:hover .p4-label,
+.p4-circle:focus-visible .p4-label{text-decoration-color:var(--burnt-sienna)}
+@media (max-width:900px){
+  .p4-label{
+    white-space:nowrap;
+    font-size:clamp(11px,3.1vw,15px);
+    max-width:none;
+  }
+}
+
+/* --- Row 21: the two legal pages --------------------------------------------
+   Long-form reading, so a narrow measure and generous leading. Nothing clever. */
+.legal-page{padding-top:calc(var(--header-h,86px) + 56px)}
+.legal-page .container{max-width:74ch}
+.legal-page h1{margin-bottom:8px}
+.legal-page .legal-lead{color:var(--warm-brown);margin:0 0 8px}
+.legal-page h2{
+  font-size:clamp(20px,2vw,26px);
+  margin:44px 0 10px;
+  padding-top:18px;
+  border-top:1px solid var(--line);
+}
+.legal-page p,.legal-page li{line-height:1.75;color:var(--warm-brown)}
+.legal-page ul{margin:10px 0 0 1.1em;display:grid;gap:8px}
+.legal-page a{color:var(--burnt-sienna);text-decoration:underline;text-underline-offset:3px}
+
+/* Fields only Marine can supply. Deliberately loud: a legal page that quietly
+   ships an invented SIRET is far worse than one that visibly says "pending". */
+.tofill{
+  background:rgba(216,156,68,.22);
+  border-bottom:1px dashed var(--golden-ochre);
+  padding:1px 5px;border-radius:4px;
+  font-style:italic;
+}
+
+/* Found by the unstyled-class sweep (rule 92): .price-now had no rule at all, so
+   the new price sat at the same muted weight as the struck one and the discount
+   read as a typo rather than an offer. .price-was is deliberately faded, so its
+   partner has to be deliberately not. */
+.price-now{color:var(--burnt-sienna);font-weight:600}
+
+/* --- 27 Aug 2026: the new certification marks need more room ------------------
+   Anfliya's set is drawn on a 1080 viewBox with real internal detail: the ICF
+   globe has meridian lines, the movement mark has individual leaves, the Ayurveda
+   mark has fine rays around the heart. The row was sized 34px for the OLD marks,
+   which were 5 to 8 paths on a 64 viewBox and were built for exactly that size.
+   Dropped into a 34px box the new ones measured as illegible blobs on screen, so
+   the box grows rather than the artwork being redrawn. 56px is where the globe
+   meridians and the leaves resolve; the row height barely moves because the two
+   lines of text next to it were already taller than the icon.
+   Also dropping the .9 opacity: it was there to stop the old heavier marks
+   shouting, and on these finer lines it just costs contrast. */
+.cert-row .cert-picto{width:56px;height:56px;flex:0 0 56px}
+.cert-row .cert-picto img{opacity:1}
+@media(max-width:820px){
+  .cert-row .cert-picto{width:46px;height:46px;flex:0 0 46px}
+}
+
+/* ============================================================================
+   31 Aug 2026 call with Marine. Ledger: _work/LEDGER-CALL-2026-08-31.md
+   ============================================================================ */
+
+/* --- Rows 6 + 7: one-line logo on mobile, legible wordmark -------------------
+   The stacked nav lockup is 420x210. At 46px tall on a phone the three words
+   REWRITE / REALIGN / RISE come out around 5px and are unreadable, which is
+   exactly what Manan said on the call. The inline lockup is 1200x208, the same
+   artwork on a single line, so at the same height the wordmark is legible. */
+/* Specificity note, the same trap as the method band: the site already sets
+   `.nav-brand img { display:block }` at 0,1,1, so a bare `.brand-stack` at 0,1,0
+   loses and BOTH lockups rendered at once. Measured at 390: two images, 38px each.
+   Qualifying with .nav-brand takes these to 0,2,1 and they win. */
+.nav-brand{display:block}
+.nav-brand img.brand-inline{display:none}
+@media (max-width:680px){
+  .nav-brand img.brand-stack{display:none}
+  .nav-brand img.brand-inline{display:block;height:24px;width:auto}
+}
+
+/* --- Row 3: smaller circles -------------------------------------------------
+   "I will make these circles a little more smaller. I feel they're too big."
+   240px -> 200px on desktop. The marks themselves were re-cut in the SVG so the
+   ink now fills a consistent 62 percent of each viewBox. */
+@media (min-width:900px){
+  .p4-circles--fits > *{flex:0 0 200px}
+}
+
+/* --- Row 8: mobile circles 2 x 2, no horizontal scrolling -------------------
+   "on the phone version, I will make sure these four come two by two, rather
+   than you needing to scroll". That also retires the arrows on mobile, since a
+   grid has nothing to page through. */
+@media (max-width:899px){
+  .p4-circles{
+    display:grid !important;
+    grid-template-columns:1fr 1fr;
+    gap:clamp(18px,5vw,30px) clamp(14px,4vw,26px);
+    overflow-x:visible !important;
+    padding-inline:0 !important;
+    max-width:420px;
+    margin-inline:auto;
+  }
+  .p4-circles > *{flex:none !important;width:100%}
+  .p4-circles::after{content:none !important}
+  /* .menu-arrows alone lost to .menu-rail-wrap .menu-arrows. A grid has nothing
+     to page through, so the arrows are not just redundant, they are misleading. */
+  .menu-rail-wrap .menu-arrows{display:none !important}
+}
+
+/* --- Rows 10 + 11: Instagram, in the footer and in the drawer --------------- */
+.footer-ig{
+  display:inline-flex;align-items:center;gap:8px;margin-top:14px;
+  font-size:13px;color:var(--cream-beige);text-decoration:none;
+  border:1px solid rgba(247,231,201,.34);border-radius:99px;padding:7px 14px;
+  transition:background-color 200ms ease,border-color 200ms ease;
+}
+.footer-ig:hover{background:rgba(247,231,201,.12);border-color:rgba(247,231,201,.6)}
+.footer-ig svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.6}
+.m-ig{
+  display:block;margin-top:14px;text-align:center;
+  font-size:14px;letter-spacing:.04em;color:var(--burnt-sienna);
+  text-decoration:underline;text-underline-offset:4px;
+}
+
+/* --- Rows 12 + 13: the Instagram strip, home and contact only ---------------
+   "landing page and contact page... the rest, I like when it's clean."
+   Sits directly above the footer, which is also where Manan wanted it because
+   the closing band and the footer were stacking two similar colours. */
+.ig-strip{background:var(--cream-soft);padding:clamp(38px,5vw,60px) 0 clamp(30px,4vw,46px)}
+.ig-strip .ig-head{display:flex;align-items:baseline;justify-content:space-between;
+  gap:16px;max-width:var(--maxw);margin:0 auto clamp(18px,2.4vw,26px);flex-wrap:wrap}
+.ig-strip h2{font-size:clamp(20px,2.2vw,27px);margin:0}
+.ig-strip .ig-handle{font-size:13px;color:var(--burnt-sienna);text-decoration:underline;
+  text-underline-offset:4px;white-space:nowrap}
+/* Marine, WhatsApp 31 Aug 17:27: "can we keep only 1 line?" plus Manan: "make sure
+   it is scrollable." So the two-row grid becomes ONE row that scrolls sideways, and
+   all eight posts stay reachable instead of four being dropped.
+
+   The tiles are sized to 4.35 per viewport rather than a clean 4 on purpose. Four
+   tiles that exactly fill the width give no signal that anything follows them, and a
+   scroller nobody knows is a scroller is just a shorter grid. The partial fifth tile
+   is the affordance. Scroll snapping makes it land tidily anyway.
+
+   overscroll-behavior-x:contain stops a sideways flick from triggering the browser's
+   back gesture, which is the standard way these carousels annoy people on a phone. */
+.ig-grid{--ig-gap:clamp(10px,1.4vw,18px);
+  display:flex;gap:var(--ig-gap);max-width:var(--maxw);margin-inline:auto;
+  overflow-x:auto;overflow-y:hidden;
+  scroll-snap-type:x mandatory;overscroll-behavior-x:contain;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;padding-bottom:2px}
+.ig-grid::-webkit-scrollbar{display:none}
+/* Marine, 17:28: "Why are they not showing the first image of the post? the one on
+   my instagram feed?" She was right and it was my error. For the reels I had pulled a
+   frame 1.5s in; she uploads CUSTOM covers with SoulScript typography, so a video
+   frame was never going to be it, and neither was slide 1 for the carousels. The
+   tiles are now cropped from her actual profile grid.
+   That grid is 3:4 PORTRAIT, not square. Squaring it back would crop the headline off
+   the very covers she is asking to see, so the tiles are 3:4 too and the strip now
+   reads like her feed. */
+.ig-grid a{flex:0 0 calc((100% - 4 * var(--ig-gap)) / 5.35);
+  scroll-snap-align:start;
+  display:block;aspect-ratio:3/4;border-radius:12px;overflow:hidden;
+  background:var(--cream-beige);border:1px solid var(--line)}
+.ig-grid img{width:100%;height:100%;object-fit:cover;display:block}
+@media (max-width:700px){
+  .ig-grid a{flex-basis:calc((100% - var(--ig-gap)) / 2.4)}
+}
+
+/* Row 20 (the stray header line) is NOT fixed here. I first assumed .inner-hero
+   was drawing a stray border and wrote a rule for it. Then I actually measured:
+   the only hairlines anywhere in the top 900px are .nav-bar's own 1px pill
+   outline, which is deliberate. So the guess was wrong and the rule was a no-op.
+   Kept as a note rather than dead CSS. Chasing it visually instead. */
+
+/* A small play glyph on video posts, so a reel does not look like a still.
+   Only applied once the live feed has actually swapped the tiles in. */
+.ig-grid.is-live a.is-video{position:relative}
+.ig-grid.is-live a.is-video::after{
+  content:"";position:absolute;right:10px;top:10px;width:0;height:0;
+  border-left:11px solid rgba(255,255,255,.92);
+  border-top:7px solid transparent;border-bottom:7px solid transparent;
+  filter:drop-shadow(0 1px 2px rgba(0,0,0,.35));
+}
+
+
+/* --- 31 Aug, second pass on the mobile header -------------------------------
+   Three things Manan caught, all three measured before and after.
+
+   1. FR|EN was display:none below 400px, my own rule from 24 Aug. Reversed above.
+   2. The logo sat 35px left of the bar centre. First attempt with flex:1 on the
+      brand only moved it to 52px off, because centring inside the LEFTOVER space
+      is not centring inside the bar: burger is 44px, FR|EN plus pill is 146px.
+      The fix is to rebalance the row rather than nudge the logo. FR|EN moves to
+      the LEFT of the logo, beside the burger, which makes the two outer groups
+      98px and 90px and leaves the logo 4px off true centre. It also puts the
+      language switch exactly where he described it, on the strip itself.
+      display:contents on .nav-right lets its children take part in the bar's own
+      flex ordering without a second wrapper.
+   3. The three words. The mobile lockup was lockup-inline-sienna.png, which is
+      the name ONLY: measured, it has one ink band where the desktop lockup has
+      two. Switching to it on 31 Aug silently deleted REWRITE / REALIGN / RISE.
+      lockup-oneline-white.png is built from both, name on one line plus the
+      wordmark block cut from cols 234-321 of the desktop artwork, recoloured to
+      the cream. White, present, and one line. */
+@media (max-width:680px){
+  .site-header .nav-bar{gap:6px}
+  .nav-right{display:contents}
+  .menu-toggle{order:1}
+  .lang-switch{order:2;display:flex}
+  .nav-brand{order:3;flex:1 1 auto;display:flex;justify-content:center;min-width:0}
+  .nav-cta-pill{order:4}
+  .nav-brand img.brand-inline{height:23px;max-width:100%;object-fit:contain}
+}
+/* Measured on the live page at 390: the lockup was being width-constrained to
+   131px, so its PAINTED height was 18px and each of the three words came out at
+   about 4px. That is the illegibility Manan reported, and it is a width problem,
+   not a height problem. Every other item in the bar gives up a few pixels so the
+   lockup can have them, and the wordmark now takes 96% of the lockup height
+   instead of 70%. */
+@media (max-width:430px){
+  .site-header .nav-bar{gap:5px;padding-left:6px;padding-right:6px}
+  .menu-toggle{width:34px;flex:0 0 34px}
+  .lang-switch{font-size:10px;gap:2px}
+  .nav-cta-pill{padding:9px 11px;font-size:10px;letter-spacing:.06em}
+  .nav-brand img.brand-inline{height:30px}
+}
+@media (max-width:370px){
+  .nav-cta-pill{padding:8px 9px}
+}
+
+/* --- Booking + real Instagram tiles, 31 Aug ---------------------------------
+   The booking calendar is click-to-load. See the comment in contact.html for why:
+   an iframe on load would put Google cookies on a site that currently sets none,
+   and that cookie-free default is what keeps it clear of a CNIL consent banner. */
+.ss-booking-note{margin-top:10px;font-size:12px;line-height:1.5;color:var(--warm-brown);opacity:.8;max-width:44ch}
+.ss-booking.is-loaded{margin-top:18px;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+.ss-booking.is-loaded iframe{display:block;width:100%;height:700px;border:0}
+/* Google's scheduler clips its own date grid below about 600px wide, and inside the
+   two-column split it was getting 526. Opening the calendar collapses the split. */
+.split.booking-open{grid-template-columns:1fr}
+@media (max-width:700px){ .ss-booking.is-loaded iframe{height:620px} }
+
+/* The strip now ships eight real posts in the markup rather than four
+   placeholders, so .is-live is set server-side and the play glyph applies
+   immediately instead of waiting for a feed that is not connected yet.
+   Four on a phone: two clean rows, per Marine's "the rest, I like when it's clean". */
+/* SUPERSEDED 31 Aug: tiles 5-8 used to be hidden on a phone because the grid
+   wrapped to four rows. The strip scrolls now, so hiding them would remove posts
+   the visitor can simply swipe to. */
+
+/* The English pill says "Book a call", three words, and at 390 it wrapped to two
+   lines: pill 54px instead of 44, bar inflated 62px -> 72px, logo crowded. It never
+   showed up in French because "Réserver" is a single word and cannot wrap, which is
+   exactly why measuring one language is not measuring the header. */
+.nav-cta-pill{white-space:nowrap;flex:0 0 auto}
+
+
+/* --- Mobile header, third pass (31 Aug) --------------------------------------
+   Two things Manan asked for on the phone.
+
+   1. FR|EN out of the header. It leaves the bar completely below 680 and becomes a
+      small floating control at bottom left, which is where he suggested putting it.
+      The header copy stays in the DOM for desktop; only one of the two is ever
+      displayed, so nothing is announced twice.
+
+   2. The logo genuinely centred. With the switch gone the bar is burger 34px on the
+      left and a 97px pill on the right, so flex centring inside the leftover space
+      still leaves the logo about 31px off. Absolute positioning is the only way to
+      centre against the BAR rather than against the gap, so the brand is taken out
+      of flow and pinned to the true midpoint. Measured clearance at 390: burger +
+      logo + pill + gaps is about 300px inside 333px of bar, so nothing collides. */
+@media (max-width:680px){
+  .site-header .nav-bar{position:relative}
+  .site-header .nav-bar .lang-switch{display:none}
+  .nav-brand{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    flex:0 0 auto;width:auto;justify-content:center;pointer-events:auto}
+  .menu-toggle{order:1;margin-right:auto}
+  .nav-cta-pill{order:4;margin-left:auto}
+
+  .lang-float{display:flex;align-items:center;gap:4px;
+    position:fixed;left:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));
+    z-index:70;padding:8px 13px;border-radius:999px;
+    background:rgba(247,231,201,.94);border:1px solid var(--line);
+    -webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+    font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    box-shadow:0 2px 10px rgba(46,38,32,.14)}
+  .lang-float a{color:var(--warm-brown);text-decoration:none;padding:1px 2px}
+  .lang-float a.is-active{color:var(--burnt-sienna);font-weight:600}
+  .lang-float .sep{color:var(--line);opacity:.9}
+}
+/* Above 680 the header keeps its own switch and the floating one does not exist. */
+@media (min-width:681px){ .lang-float{display:none} }
+@media (max-width:380px){
+  .nav-brand img.brand-inline{height:19px}
+}
+
+/* THE PILL'S OWN TEXT WAS NEVER CENTRED (31 Aug). Manan has now said three times
+   that "Book a Call is not in the center", and every time I went looking at the
+   header layout, because that is what I assumed he meant. Measured inside the
+   button: the label sits 13px from the top and 20px from the bottom, so it is 7px
+   HIGH, and computed style says align-items:normal / justify-content:normal. It is
+   a flex box that was never told to centre anything. No amount of moving the pill
+   around the bar could have fixed a defect inside it.
+   Lesson worth keeping: when someone says an element is not centred, measure the
+   INK inside it before assuming they mean its position on the page. */
+.nav-cta-pill{display:inline-flex;align-items:center;justify-content:center;
+  line-height:1;text-align:center}
+
+/* Clearing the overlap the absolute centring introduced: with the brand pinned to
+   the true midpoint, half the logo has to fit beside the WIDER of the two side
+   groups, which is the pill. Rather than shrink the logo again (its wordmark is
+   already at the edge of legible at 7px a line) the pill gives up the pixels: it is
+   a solid block of colour and survives being smaller, the logo carries the brand. */
+@media (max-width:680px){
+  .nav-cta-pill{padding:9px 10px;font-size:9.5px;letter-spacing:.05em}
+  .nav-brand{width:min(165px, calc(100% - 200px))}
+  .nav-brand img.brand-inline{width:100%;height:auto;display:block;max-width:none}
+}
+
+/* 4px between the logo and the pill measured as cramped on screen, so the pill
+   gives up a little more. Keeps the logo at 21px, where the three words still read. */
+@media (max-width:680px){
+  .nav-cta-pill{padding:9px 9px;font-size:9px;letter-spacing:.04em}
+}
+
+/* ============================================================
+   MARINE, 3 SEP 2026 — final feedback round
+   Checklist: _work/CHECKLIST-MARINE-2026-09-03.md
+   Appended last so each fix wins the cascade without disturbing
+   anything already signed off.
+   ============================================================ */
+
+/* --- Row 7: "align the paragraph and make the page consistent in terms of format"
+   The lists were `margin-left:1.1em` with list-style:none from the reset, so the
+   page had TWO left edges: paragraphs flush at 0 and list text indented 1.1em with
+   nothing in the gap to explain it. Screenshot image4 shows it clearly, the two
+   items under "Données collectées" sit right of "Aucun profilage" directly below.
+   Now the marker hangs into the margin and the TEXT aligns with the paragraphs, so
+   the whole page has a single left edge. */
+.legal-page ul{
+  margin:12px 0 0;
+  padding:0;
+  display:grid;
+  gap:10px;
+}
+.legal-page li{
+  position:relative;
+  padding-left:18px;
+}
+.legal-page li::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:.72em;
+  width:8px;
+  height:1.5px;
+  background:var(--terracotta);
+}
+/* One measure for the whole page, so the lead paragraph and the body share an edge. */
+.legal-page p,.legal-page ul{max-width:66ch}
+.legal-page p+p{margin-top:12px}
+
+/* --- Row 11: the pull line inside the CENTRED method steps -------------------
+   `.step-pull` was authored for a left-aligned column: border-left + 18px of
+   left padding. `.p6-stack--centred` later centred the box with margin-inline:auto
+   but the padding stayed, so the TEXT sat 20px right of true centre with a gold
+   rule hanging off the left edge. That is what image15 shows. In the centred stack
+   the rule moves above the line and centres with it, which is the same treatment
+   `.standout.is-centred` already uses elsewhere on the site. */
+.p6-stack--centred .p6-body .step-pull{
+  border-left:0;
+  padding-left:0;
+  padding-top:22px;
+  margin-top:26px;
+  position:relative;
+  text-align:center;
+}
+.p6-stack--centred .p6-body .step-pull::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:50%;
+  transform:translateX(-50%);
+  width:54px;
+  height:2px;
+  background:var(--golden-ochre);
+}
+
+/* --- Row 10: chapter titles wrapped one word onto their own line ("histoire").
+   text-wrap:balance splits the lines evenly instead of filling the first one,
+   which fixes the orphan without hard-coding a break that would only be right at
+   one viewport. Applied to all four titles, not just the one she caught. */
+.chap-title{text-wrap:balance}
+
+/* --- Row 9: "the same shape as the rest of the website".
+   The button had been stretched to the column width. The house button is an inline
+   pill that sizes to its own label, exactly like the nav CTA. */
+.about-text .btn,
+.chap-text .btn{width:auto;display:inline-flex;align-self:flex-start}
+
+/* --- Row 13: the offer flag must hold one line ------------------------------- */
+.price-promo{white-space:nowrap}
+@media (max-width:400px){ .price-promo{white-space:normal} }
+
+/* --- Row 14: "Une expérience" on its own line, under. ----------------------- */
+.h-split-line{display:block}
+
+/* --- Row 15: the Google note is a footnote, not a stray grey line ------------
+   Leading asterisk hung into the margin so the note's text edge lines up with the
+   paragraph and the button above it, one measure, one left edge. */
+.ss-booking-note{
+  position:relative;
+  margin-top:16px;
+  padding-left:14px;
+  max-width:52ch;
+  font-size:13px;
+  line-height:1.6;
+  color:var(--warm-brown);
+  opacity:.9;
+}
+.ss-booking-note::before{
+  content:"*";
+  position:absolute;
+  left:0;
+  top:0;
+  color:var(--terracotta);
+  font-size:15px;
+  line-height:1.5;
+}
+
+/* --- Rows 16, 17, 18: the mobile header, rebuilt to Marine's brief -----------
+   These three come as one job because they share the same 390px of bar.
+
+   16. FR/EN. It had been moved OUT of the header to a floating pill at bottom
+       left. Marine: "it's not visible enough... I want it to be present in the
+       menu or just behind." It comes back into the bar at every width AND gets a
+       full-width pair at the top of the drawer, so it is in both places she named.
+       The floating control is deleted, not hidden, so there is no second copy for
+       a screen reader to find.
+
+   17. The burger. Three bare lines with no container, sitting next to a solid
+       pill: "does not seem the right shape". It is now a pill-shaped button with
+       the same 999px radius and the same hairline as the rest of the bar.
+
+   18. The lockup is now wordmark-over-baseline, which is TALLER and NARROWER than
+       the old side-by-side one. That is what pays for FR|EN coming back: the brand
+       needs about 40px less width than before. -------------------------------- */
+@media (max-width:680px){
+  /* undo the floating-switch layout */
+  .site-header .nav-bar .lang-switch{display:flex}
+  .lang-float{display:none !important}
+
+  .site-header .nav-bar{position:relative;gap:6px;padding:8px 10px}
+  .menu-toggle{order:1;margin-right:0}
+  .lang-switch{order:2}
+  .nav-cta-pill{order:4;margin-left:auto}
+
+  /* Absolute centring is kept from the previous pass: the two side groups are
+     never equal, so flex centring puts the logo off true middle. */
+  .nav-brand{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);
+    flex:0 0 auto;justify-content:center;
+    width:min(186px, calc(100% - 208px))}
+  .nav-brand img.brand-inline{display:block;width:100%;height:auto;max-width:none}
+
+  /* Row 17: give the burger a real shape. */
+  .menu-toggle{
+    width:38px;height:38px;flex:0 0 38px;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;
+    border-radius:999px;
+    border:1px solid rgba(46,38,32,.18);
+    background:rgba(247,231,201,.55);
+    -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);
+    transition:background-color 180ms ease,border-color 180ms ease;
+  }
+  .menu-toggle span{width:15px;height:1.5px;border-radius:1px}
+  .menu-toggle:active{background:rgba(247,231,201,.85)}
+  /* over the photo hero the bar is transparent, so the button borrows the same
+     light treatment the rest of the bar uses there */
+  .hero-top .site-header .menu-toggle{
+    border-color:rgba(251,247,240,.55);
+    background:rgba(251,247,240,.14);
+  }
+  .hero-top .site-header .menu-toggle span{background:var(--cream-soft)}
+
+  /* FR|EN, legible rather than decorative */
+  .site-header .lang-switch{font-size:11.5px;letter-spacing:.06em;gap:3px;
+    flex:0 0 auto;white-space:nowrap}
+  .site-header .lang-switch a{padding:2px 1px}
+
+  .nav-cta-pill{padding:9px 12px;font-size:9.5px;letter-spacing:.05em}
+}
+@media (max-width:400px){
+  .nav-brand{width:min(168px, calc(100% - 196px))}
+  .menu-toggle{width:34px;height:34px;flex:0 0 34px}
+  .site-header .lang-switch{font-size:11px}
+  .nav-cta-pill{padding:9px 10px;font-size:9px}
+}
+/* Row 16, the drawer half: the pair she can actually see and hit. */
+.m-lang-top{
+  display:flex;gap:10px;margin:6px 0 26px;
+}
+/* MEASURED, NOT ASSUMED. I wrote these for a dark drawer and the drawer is CREAM
+   (#F7E7C9), so the inactive button rendered cream-on-cream: "English" was on the
+   page, 170px wide, and completely invisible. Caught by looking at the screenshot,
+   not by reading the diff. Colours are now taken from the drawer's real ground. */
+.m-lang-top a{
+  flex:1 1 0;text-align:center;
+  padding:12px 8px;border-radius:999px;
+  border:1px solid rgba(46,38,32,.22);
+  font-family:var(--font-body);
+  font-size:13px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--warm-brown);
+  background:transparent;
+}
+.m-lang-top a.is-active{
+  background:var(--burnt-sienna);color:var(--cream-soft);
+  border-color:var(--burnt-sienna);font-weight:600;
+}
+
+/* Measured on the live page after the row 7 fix: the paragraph that follows a list
+   ("Aucun profilage...") butted straight up against the last item and read as a
+   third bullet. Same left edge, but it needs the gap to say it is a new thought. */
+.legal-page ul + p{margin-top:16px}
+
+/* --- Rows 19 + 20, found on a second read of Marine's doc -------------------
+   Both were written on the SAME paragraph as one of her screenshots, so my first
+   pass over the file printed the image and dropped the sentence. Re-extracted
+   paragraph by paragraph and they came back. Worth remembering: a .docx paragraph
+   can carry a picture AND text, and reading only one of the two loses instructions.
+
+   19. "Rework the color of the logo with the background when scrolling down.
+        Please make sure the logo is visible throughout the all navigation."
+       Real bug, already fixed with row 18: the mobile lockup file was WHITE ink
+       while .hero-top forces white with a filter anyway, so the moment you scrolled
+       past the hero and the bar turned cream the logo was white on cream. Source is
+       now sienna, filtered to white over the hero. Visible in both states.
+
+   20. "When the background is back : the menu on the left should be white."
+       Once the bar has its cream background, the burger sat on cream in a
+       translucent cream circle and stopped reading as a button. It now becomes a
+       solid white disc with sienna bars, which is both what she asked for and what
+       makes it look deliberate next to the Réserver pill. */
+@media (max-width:680px){
+  html:not(.hero-top) .site-header .menu-toggle{
+    background:var(--cream-soft);
+    border-color:rgba(143,42,13,.20);
+    box-shadow:0 1px 3px rgba(46,38,32,.10);
+  }
+  html:not(.hero-top) .site-header .menu-toggle span{background:var(--burnt-sienna)}
+}
+
+/* --- Marine, 3 Sep 10:52 -----------------------------------------------------
+   "We need a line break for the bold text and a space between the two paragraphs."
+   The markup is back to one paragraph per block with the quote on its own line
+   (I had merged them this morning, reading her earlier note the wrong way round).
+   14px between paragraphs against a 29px line was not reading as a break, so the
+   gap inside an accordion answer goes to 20px, and the bold quote gets a little
+   more air on both sides so it lands as its own beat rather than a heavy line in
+   the middle of running text. */
+.acc-a-inner p { margin-bottom: 20px; }
+.acc-a-inner p:last-child { margin-bottom: 0; }
+.acc-a-inner p > strong:only-child { display: block; }
+.acc-a-inner p:has(> strong:only-child) { margin-top: 22px; margin-bottom: 22px; }
+
+/* --- FINAL VERIFICATION PASS, 3 Sep. Found by measuring, not by looking. --------
+   The mobile bar has no overlap at 390, which is why it looked fine, but the
+   clearances are wrong at other common widths. Measured on the live pages:
+
+     390 FR   logo->pill 13px      390 EN   logo->pill  2px
+     414 FR   logo->pill 12px      414 EN   logo->pill  0px   <- touching
+     430 FR   logo->pill 17px      430 EN   logo->pill  5px
+
+   Cause: the brand is absolutely centred, so the space it may occupy is set by
+   TWICE THE WIDER SIDE, not by the sum of the two. The old reserve of 208px was
+   the sum. "Book a call" is 94px against "Réserver" at 75, so English is the case
+   that fails and French hid it.
+
+   New reserve = 2 x (widest side group + bar padding) + 2 x 8px of breathing room.
+   Deliberately driven by the ENGLISH pill, the wider of the two, so both languages
+   land in the same place. */
+@media (max-width:680px){
+  .nav-brand{ width:min(180px, calc(100% - 224px)); }
+}
+/* Below 380 the two side groups themselves have to give, or the reserve leaves the
+   lockup too small to read the three words. Pill and switch step down together. */
+@media (max-width:379px){
+  .site-header .nav-bar{padding-left:8px;padding-right:8px;gap:5px}
+  .menu-toggle{width:32px;height:32px;flex:0 0 32px}
+  .site-header .lang-switch{font-size:10px;gap:2px}
+  .nav-cta-pill{padding:8px 8px;font-size:8.5px;letter-spacing:.03em}
+  .nav-brand{ width:min(150px, calc(100% - 186px)); }
+}
+
+/* --- Marine, Sat 12:25: "Only 1 tiny change hasn't been made: the alignment of
+   the text in la méthode". She has now pointed at step 02 TWICE. She was right
+   both times and my first fix only treated a symptom.
+
+   MEASURED on the live page, the three step bodies:
+     step 01   left 411   right 1014   width 604
+     step 02   left 354   right 1071   width 718   <- wider than the other two
+     step 03   left 411   right 1014   width 604
+
+   Step 02's h3 is one long unbroken line, 718px, and nothing capped it. It sized
+   the grid column, so the whole block grew. Its paragraph then centred inside its
+   own 604px measure, which sits flush LEFT in that 718px body, landing the copy
+   56px left of the heading's centre. That is the drift she can see, and it is the
+   57px I measured on 3 Sep and wrongly wrote off as a ragged-text artefact.
+
+   Fix the cause, not the symptom: give every step body ONE fixed measure so the
+   longest heading can no longer stretch its own column, and centre every child
+   inside it. All three blocks then share identical geometry. */
+.p6-stack--centred .p6-body{
+  width:100%;
+  max-width:620px;
+  margin-inline:auto;
+}
+.p6-stack--centred .p6-body > *{
+  max-width:100%;
+  margin-inline:auto;
+}
+/* step 02's heading now wraps, so split it evenly rather than leaving a runt line */
+.p6-stack--centred .p6-body h3{ text-wrap:balance; }
+.p6-stack--centred .p6-body p{ text-wrap:pretty; }

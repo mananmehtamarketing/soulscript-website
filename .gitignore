@@ -1,0 +1,5 @@
+.DS_Store
+.vercel
+.vercel-blobs*
+_deploy*
+node_modules

@@ -1,0 +1,10 @@
+User-agent: *
+Allow: /
+
+# Marine asked for these two to stay unpublished until mid-September.
+Disallow: /communaute
+Disallow: /pour-les-entreprises
+Disallow: /en/communaute
+Disallow: /en/pour-les-entreprises
+
+Sitemap: https://soulscript.fr/sitemap.xml
